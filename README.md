@@ -4,13 +4,15 @@
 
 ---------------------------------
 
-This project is managed by:
-- **Jacob Donley**  (jrd089@uowmail.edu.au) and
-- **Matthew Dabin** (md026@uowmail.edu.au)
+This project is maintained by:
+- **[Jacob Donley][1]**  (jrd089@uowmail.edu.au) and
+- **[Matthew Dabin][2]** (md026@uowmail.edu.au)
+[1]: https://github.com/JacobD10
+[2]: https://github.com/mattdabin
 
 ASAR is a UOW research project and is being made open source in the hope to benefit other researchers.
-For more information on the type of research we do visit our supervisor, ***A/Prof Christian Ritz's*** [webpage][1].
-[1]: http://www.uow.edu.au/~critz/
+For more information on the type of research we do visit our supervisor, ***A/Prof Christian Ritz's*** [webpage][3].
+[3]: http://www.uow.edu.au/~critz/
 
 This particular software project has aims to automatically record spatial audio using our rotating platform hardware.
 The software will send serial commands to the micro-controller in order to rotate the platform. It will, at the same
