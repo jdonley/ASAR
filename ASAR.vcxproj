@@ -89,7 +89,6 @@
     <Text Include="README.md">
       <FileType>Document</FileType>
     </Text>
-    <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ASAR.cpp" />

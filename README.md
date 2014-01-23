@@ -13,7 +13,7 @@ For more information on the type of research we do visit our supervisor, ***A/Pr
 [1]: http://www.uow.edu.au/~critz/
 
 This particular software project has aims to automatically record spatial audio using our rotating platform hardware.
-The software will send serial commands to the micro controller in order to rotate the platform. It will, at the same
+The software will send serial commands to the micro-controller in order to rotate the platform. It will, at the same
 time, attempt to start recording the audio on a third party piece of software installed locally. If all is successful,
 support will be added to determine the angle of rotation and visually display this information. This project is a
 Visual C++ project and has the capability of being able to display many features of audio, this is currently a stretch goal.
