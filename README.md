@@ -1,5 +1,5 @@
->>>>>>>>>>>>#ASAR    <img style="float:right" src="http://www.uow.edu.au/content/groups/webasset/@web/documents/siteelement/img_uow_logo.png" />
-
+---------------------------------
+>#ASAR <img style="float:right" src="http://www.uow.edu.au/content/groups/webasset/@web/documents/siteelement/img_uow_logo.png" width="209" height="60" />
 ###Automated Spatial Audio Recorder
 
 ---------------------------------
