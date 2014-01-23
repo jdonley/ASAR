@@ -40,6 +40,8 @@ namespace ASAR {
 	private: System::Windows::Forms::Label^  label1;
 	private: System::Windows::Forms::Button^  button3;
 	private: System::Windows::Forms::Button^  button4;
+	private: System::Windows::Forms::Label^  label2;
+	private: System::Windows::Forms::TextBox^  textBox1;
 
 	private:
 		/// <summary>
@@ -59,11 +61,13 @@ namespace ASAR {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->button4 = (gcnew System::Windows::Forms::Button());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->SuspendLayout();
 			// 
 			// button1
 			// 
-			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->button1->Location = System::Drawing::Point(90, 12);
 			this->button1->Name = L"button1";
@@ -74,7 +78,7 @@ namespace ASAR {
 			// 
 			// button2
 			// 
-			this->button2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+			this->button2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->button2->Location = System::Drawing::Point(215, 12);
 			this->button2->Name = L"button2";
@@ -86,7 +90,7 @@ namespace ASAR {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label1->Location = System::Drawing::Point(86, 82);
 			this->label1->Name = L"label1";
@@ -96,9 +100,9 @@ namespace ASAR {
 			// 
 			// button3
 			// 
-			this->button3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+			this->button3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->button3->Location = System::Drawing::Point(12, 163);
+			this->button3->Location = System::Drawing::Point(350, 85);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(103, 52);
 			this->button3->TabIndex = 3;
@@ -107,20 +111,39 @@ namespace ASAR {
 			// 
 			// button4
 			// 
-			this->button4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+			this->button4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->button4->Location = System::Drawing::Point(190, 141);
+			this->button4->Location = System::Drawing::Point(296, 143);
 			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(261, 74);
+			this->button4->Size = System::Drawing::Size(157, 74);
 			this->button4->TabIndex = 4;
 			this->button4->Text = L"Start 360 degree Recording";
 			this->button4->UseVisualStyleBackColor = true;
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(12, 117);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(60, 13);
+			this->label2->TabIndex = 5;
+			this->label2->Text = L"Serial Feed";
+			// 
+			// textBox1
+			// 
+			this->textBox1->Location = System::Drawing::Point(15, 133);
+			this->textBox1->Multiline = true;
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->Size = System::Drawing::Size(243, 84);
+			this->textBox1->TabIndex = 6;
 			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(463, 227);
+			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->label2);
 			this->Controls->Add(this->button4);
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->label1);
