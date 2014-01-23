@@ -19,7 +19,6 @@
     <None Include="app.ico">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="README.md" />
     <None Include="LICENSE" />
   </ItemGroup>
   <ItemGroup>
@@ -53,5 +52,8 @@
     <EmbeddedResource Include="Form1.resX">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="README.md" />
   </ItemGroup>
 </Project>

@@ -86,7 +86,9 @@
   <ItemGroup>
     <None Include="app.ico" />
     <None Include="LICENSE" />
-    <None Include="README.md" />
+    <Text Include="README.md">
+      <FileType>Document</FileType>
+    </Text>
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
