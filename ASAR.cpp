@@ -14,16 +14,6 @@ int main(array<System::String ^> ^args)
 
 	// Create the main window and run it
 	Application::Run(gcnew Form1());
-
-
-	/* Attn. Matthew Dabin
-	 * Feel free to start writing code here which will connect
-	 * to the COM port of choice and you can display the output 
-	 * in a TextBox object on Form1.
-	 * Once you get connected and start transceiving clean signals
-	 * you can create functions for the buttons to send the appropriate commands.
-	 */
-
-
+	
 	return 0;
 }
