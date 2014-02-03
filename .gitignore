@@ -1,4 +1,8 @@
-Debug/*
-ASAR.opensdf
-ASAR.suo
-ASAR.sdf
+ASAR/Debug/*
+ASAR/ASAR.opensdf
+ASAR/ASAR.suo
+<<<<<<< origin/CS_Project
+ASAR/ASAR.sdf
+=======
+ASAR/ASAR.sdf
+>>>>>>> local
