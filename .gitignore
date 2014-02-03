@@ -4,6 +4,5 @@ ASAR/bin/Release/*.config
 ASAR/bin/Release/*.manifest
 ASAR/bin/Release/*.vshost.*
 ASAR/obj/*
-ASAR/ASAR.opensdf
-ASAR/ASAR.suo
-ASAR/ASAR.sdf
+ASAR/*.suo
+ASAR/*sdf
