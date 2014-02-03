@@ -1,6 +1,6 @@
 ﻿namespace ASAR
 {
-    partial class Form1
+    partial class formMain
     {
         /// <summary>
         /// Required designer variable.
@@ -29,10 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title5 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
@@ -41,9 +44,17 @@
             this.btnRotateCW = new System.Windows.Forms.Button();
             this.btnRotateCCW = new System.Windows.Forms.Button();
             this.serialPort = new System.IO.Ports.SerialPort(this.components);
-            this.chartLocation = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.lblCurrentPosition = new System.Windows.Forms.Label();
+            this.tabDisplayChoice = new System.Windows.Forms.TabControl();
+            this.tabLocation = new System.Windows.Forms.TabPage();
+            this.tabFrequency = new System.Windows.Forms.TabPage();
+            this.chartLocation = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartFrequency = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabDisplayChoice.SuspendLayout();
+            this.tabLocation.SuspendLayout();
+            this.tabFrequency.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartLocation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartFrequency)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
@@ -117,35 +128,6 @@
             this.btnRotateCCW.UseVisualStyleBackColor = true;
             this.btnRotateCCW.Click += new System.EventHandler(this.btnRotateCCW_Click);
             // 
-            // chartLocation
-            // 
-            this.chartLocation.BackColor = System.Drawing.Color.Transparent;
-            chartArea5.Name = "ChartArea1";
-            this.chartLocation.ChartAreas.Add(chartArea5);
-            legend5.Enabled = false;
-            legend5.Name = "Legend1";
-            this.chartLocation.Legends.Add(legend5);
-            this.chartLocation.Location = new System.Drawing.Point(22, 203);
-            this.chartLocation.Name = "chartLocation";
-            series5.BorderWidth = 5;
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Polar;
-            series5.Legend = "Legend1";
-            series5.MarkerBorderColor = System.Drawing.Color.Blue;
-            series5.MarkerBorderWidth = 2;
-            series5.MarkerSize = 15;
-            series5.MarkerStep = 2;
-            series5.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series5.Name = "Location";
-            series5.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            this.chartLocation.Series.Add(series5);
-            this.chartLocation.Size = new System.Drawing.Size(391, 316);
-            this.chartLocation.TabIndex = 17;
-            title5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title5.Name = "Location";
-            title5.Text = "Location";
-            this.chartLocation.Titles.Add(title5);
-            // 
             // lblCurrentPosition
             // 
             this.lblCurrentPosition.AutoSize = true;
@@ -156,11 +138,93 @@
             this.lblCurrentPosition.TabIndex = 16;
             this.lblCurrentPosition.Text = "0°";
             // 
-            // Form1
+            // tabDisplayChoice
+            // 
+            this.tabDisplayChoice.Controls.Add(this.tabLocation);
+            this.tabDisplayChoice.Controls.Add(this.tabFrequency);
+            this.tabDisplayChoice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabDisplayChoice.Location = new System.Drawing.Point(12, 203);
+            this.tabDisplayChoice.Name = "tabDisplayChoice";
+            this.tabDisplayChoice.SelectedIndex = 0;
+            this.tabDisplayChoice.Size = new System.Drawing.Size(401, 315);
+            this.tabDisplayChoice.TabIndex = 18;
+            // 
+            // tabLocation
+            // 
+            this.tabLocation.Controls.Add(this.chartLocation);
+            this.tabLocation.Location = new System.Drawing.Point(4, 29);
+            this.tabLocation.Name = "tabLocation";
+            this.tabLocation.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLocation.Size = new System.Drawing.Size(393, 282);
+            this.tabLocation.TabIndex = 0;
+            this.tabLocation.Text = "Location";
+            this.tabLocation.UseVisualStyleBackColor = true;
+            // 
+            // tabFrequency
+            // 
+            this.tabFrequency.Controls.Add(this.chartFrequency);
+            this.tabFrequency.Location = new System.Drawing.Point(4, 29);
+            this.tabFrequency.Name = "tabFrequency";
+            this.tabFrequency.Padding = new System.Windows.Forms.Padding(3);
+            this.tabFrequency.Size = new System.Drawing.Size(393, 282);
+            this.tabFrequency.TabIndex = 1;
+            this.tabFrequency.Text = "Frequency";
+            this.tabFrequency.UseVisualStyleBackColor = true;
+            // 
+            // chartLocation
+            // 
+            this.chartLocation.BackColor = System.Drawing.Color.Transparent;
+            chartArea1.Name = "ChartArea1";
+            this.chartLocation.ChartAreas.Add(chartArea1);
+            legend1.Enabled = false;
+            legend1.Name = "Legend1";
+            this.chartLocation.Legends.Add(legend1);
+            this.chartLocation.Location = new System.Drawing.Point(1, 6);
+            this.chartLocation.Name = "chartLocation";
+            series1.BorderWidth = 5;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Polar;
+            series1.Legend = "Legend1";
+            series1.MarkerBorderColor = System.Drawing.Color.Blue;
+            series1.MarkerBorderWidth = 2;
+            series1.MarkerSize = 15;
+            series1.MarkerStep = 2;
+            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series1.Name = "Location";
+            series1.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            this.chartLocation.Series.Add(series1);
+            this.chartLocation.Size = new System.Drawing.Size(386, 277);
+            this.chartLocation.TabIndex = 18;
+            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title1.Name = "Location";
+            title1.Text = "Location";
+            this.chartLocation.Titles.Add(title1);
+            // 
+            // chartFrequency
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.chartFrequency.ChartAreas.Add(chartArea2);
+            this.chartFrequency.Location = new System.Drawing.Point(6, 6);
+            this.chartFrequency.Name = "chartFrequency";
+            this.chartFrequency.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
+            series2.ChartArea = "ChartArea1";
+            series2.Name = "Series1";
+            this.chartFrequency.Series.Add(series2);
+            this.chartFrequency.Size = new System.Drawing.Size(381, 270);
+            this.chartFrequency.TabIndex = 0;
+            this.chartFrequency.Text = "chartFrequency";
+            title2.Alignment = System.Drawing.ContentAlignment.TopCenter;
+            title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            title2.Name = "Frequency";
+            title2.Text = "Frequency";
+            this.chartFrequency.Titles.Add(title2);
+            // 
+            // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(597, 530);
+            this.ClientSize = new System.Drawing.Size(595, 530);
+            this.Controls.Add(this.tabDisplayChoice);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button4);
@@ -168,12 +232,19 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnRotateCW);
             this.Controls.Add(this.btnRotateCCW);
-            this.Controls.Add(this.chartLocation);
             this.Controls.Add(this.lblCurrentPosition);
-            this.Name = "Form1";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.Name = "formMain";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ASAR";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.tabDisplayChoice.ResumeLayout(false);
+            this.tabLocation.ResumeLayout(false);
+            this.tabFrequency.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartLocation)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartFrequency)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,8 +260,12 @@
         private System.Windows.Forms.Button btnRotateCW;
         private System.Windows.Forms.Button btnRotateCCW;
         private System.IO.Ports.SerialPort serialPort;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartLocation;
         private System.Windows.Forms.Label lblCurrentPosition;
+        private System.Windows.Forms.TabControl tabDisplayChoice;
+        private System.Windows.Forms.TabPage tabLocation;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartLocation;
+        private System.Windows.Forms.TabPage tabFrequency;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartFrequency;
     }
 }
 

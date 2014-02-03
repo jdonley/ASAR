@@ -22,11 +22,12 @@ namespace ASAR
 * After this is done you can look at writing a class for the code OR just start a class/object right away :)
 */
 
-    public partial class Form1 : Form
-    {        
-		Series seriesLocation;
+    public partial class formMain : Form
+    {
+        Series seriesLocation;
+        Series seriesFrequency;
 
-        public Form1()
+        public formMain()
         {
             InitializeComponent();
         }
@@ -34,14 +35,21 @@ namespace ASAR
         private void Form1_Load(object sender, EventArgs e)
         {
         // Code to run when the Form loads
-		    // Initialise the graph
+		    // Initialise the location graph
 		    seriesLocation = chartLocation.Series[0];
 			seriesLocation.Points.Clear();
 			seriesLocation.Points.AddXY(0, 10);
 			seriesLocation.Points.AddXY(0, 0);
 
-			//Initial serial port settings
-			serialPort.PortName = "COM1";
+            // Initialise the frequency graph
+            seriesFrequency = chartFrequency.Series[0];
+            seriesFrequency.Points.Clear();
+            int frequencyResolution = 50;
+            for (int i = 0; i < frequencyResolution; i++)
+                seriesFrequency.Points.AddY( Math.Sin(((double)i / frequencyResolution) / Math.PI * 10)); //This is just a sample to see what the chart looks like
+
+                //Initial serial port settings
+                serialPort.PortName = "COM1";
 			serialPort.BaudRate = 9600;
 			serialPort.DataBits = 8;
 			serialPort.StopBits = StopBits.One;
