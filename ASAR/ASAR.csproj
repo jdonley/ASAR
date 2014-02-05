@@ -114,6 +114,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Third Party Libraries\White-0.12.0\src\TestStack.White\TestStack.White.csproj">
+      <Project>{12c59ce2-9cf7-44f4-b27c-90754609f979}</Project>
+      <Name>TestStack.White</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

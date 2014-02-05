@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title11 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title12 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
@@ -47,13 +47,21 @@
             this.lblCurrentPosition = new System.Windows.Forms.Label();
             this.tabDisplayChoice = new System.Windows.Forms.TabControl();
             this.tabLocation = new System.Windows.Forms.TabPage();
-            this.tabFrequency = new System.Windows.Forms.TabPage();
             this.chartLocation = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabFrequency = new System.Windows.Forms.TabPage();
             this.chartFrequency = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnAudacity = new System.Windows.Forms.Button();
+            this.btnAudacityRecord = new System.Windows.Forms.Button();
+            this.btnAudacityPlay = new System.Windows.Forms.Button();
+            this.btnAudacitySkipToEnd = new System.Windows.Forms.Button();
+            this.btnAudacityStop = new System.Windows.Forms.Button();
+            this.btnAudacityPause = new System.Windows.Forms.Button();
+            this.btnAudacitySkipToStart = new System.Windows.Forms.Button();
             this.tabDisplayChoice.SuspendLayout();
             this.tabLocation.SuspendLayout();
-            this.tabFrequency.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartLocation)).BeginInit();
+            this.tabFrequency.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartFrequency)).BeginInit();
             this.SuspendLayout();
             // 
@@ -160,6 +168,35 @@
             this.tabLocation.Text = "Location";
             this.tabLocation.UseVisualStyleBackColor = true;
             // 
+            // chartLocation
+            // 
+            this.chartLocation.BackColor = System.Drawing.Color.Transparent;
+            chartArea11.Name = "ChartArea1";
+            this.chartLocation.ChartAreas.Add(chartArea11);
+            legend6.Enabled = false;
+            legend6.Name = "Legend1";
+            this.chartLocation.Legends.Add(legend6);
+            this.chartLocation.Location = new System.Drawing.Point(1, 6);
+            this.chartLocation.Name = "chartLocation";
+            series11.BorderWidth = 5;
+            series11.ChartArea = "ChartArea1";
+            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Polar;
+            series11.Legend = "Legend1";
+            series11.MarkerBorderColor = System.Drawing.Color.Blue;
+            series11.MarkerBorderWidth = 2;
+            series11.MarkerSize = 15;
+            series11.MarkerStep = 2;
+            series11.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series11.Name = "Location";
+            series11.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            this.chartLocation.Series.Add(series11);
+            this.chartLocation.Size = new System.Drawing.Size(386, 277);
+            this.chartLocation.TabIndex = 18;
+            title11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title11.Name = "Location";
+            title11.Text = "Location";
+            this.chartLocation.Titles.Add(title11);
+            // 
             // tabFrequency
             // 
             this.tabFrequency.Controls.Add(this.chartFrequency);
@@ -171,59 +208,125 @@
             this.tabFrequency.Text = "Frequency";
             this.tabFrequency.UseVisualStyleBackColor = true;
             // 
-            // chartLocation
-            // 
-            this.chartLocation.BackColor = System.Drawing.Color.Transparent;
-            chartArea1.Name = "ChartArea1";
-            this.chartLocation.ChartAreas.Add(chartArea1);
-            legend1.Enabled = false;
-            legend1.Name = "Legend1";
-            this.chartLocation.Legends.Add(legend1);
-            this.chartLocation.Location = new System.Drawing.Point(1, 6);
-            this.chartLocation.Name = "chartLocation";
-            series1.BorderWidth = 5;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Polar;
-            series1.Legend = "Legend1";
-            series1.MarkerBorderColor = System.Drawing.Color.Blue;
-            series1.MarkerBorderWidth = 2;
-            series1.MarkerSize = 15;
-            series1.MarkerStep = 2;
-            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series1.Name = "Location";
-            series1.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            this.chartLocation.Series.Add(series1);
-            this.chartLocation.Size = new System.Drawing.Size(386, 277);
-            this.chartLocation.TabIndex = 18;
-            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title1.Name = "Location";
-            title1.Text = "Location";
-            this.chartLocation.Titles.Add(title1);
-            // 
             // chartFrequency
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartFrequency.ChartAreas.Add(chartArea2);
+            chartArea12.Name = "ChartArea1";
+            this.chartFrequency.ChartAreas.Add(chartArea12);
             this.chartFrequency.Location = new System.Drawing.Point(6, 6);
             this.chartFrequency.Name = "chartFrequency";
             this.chartFrequency.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series2.ChartArea = "ChartArea1";
-            series2.Name = "Series1";
-            this.chartFrequency.Series.Add(series2);
+            series12.ChartArea = "ChartArea1";
+            series12.Name = "Series1";
+            this.chartFrequency.Series.Add(series12);
             this.chartFrequency.Size = new System.Drawing.Size(381, 270);
             this.chartFrequency.TabIndex = 0;
             this.chartFrequency.Text = "chartFrequency";
-            title2.Alignment = System.Drawing.ContentAlignment.TopCenter;
-            title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            title2.Name = "Frequency";
-            title2.Text = "Frequency";
-            this.chartFrequency.Titles.Add(title2);
+            title12.Alignment = System.Drawing.ContentAlignment.TopCenter;
+            title12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            title12.Name = "Frequency";
+            title12.Text = "Frequency";
+            this.chartFrequency.Titles.Add(title12);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(585, 12);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(96, 17);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "UI Automation";
+            // 
+            // btnAudacity
+            // 
+            this.btnAudacity.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAudacity.Location = new System.Drawing.Point(588, 32);
+            this.btnAudacity.Name = "btnAudacity";
+            this.btnAudacity.Size = new System.Drawing.Size(312, 50);
+            this.btnAudacity.TabIndex = 20;
+            this.btnAudacity.Text = "Start Audacity";
+            this.btnAudacity.UseVisualStyleBackColor = true;
+            this.btnAudacity.Click += new System.EventHandler(this.btnAudacity_Click);
+            // 
+            // btnAudacityRecord
+            // 
+            this.btnAudacityRecord.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAudacityRecord.Location = new System.Drawing.Point(800, 144);
+            this.btnAudacityRecord.Name = "btnAudacityRecord";
+            this.btnAudacityRecord.Size = new System.Drawing.Size(100, 50);
+            this.btnAudacityRecord.TabIndex = 21;
+            this.btnAudacityRecord.Text = "Record";
+            this.btnAudacityRecord.UseVisualStyleBackColor = true;
+            this.btnAudacityRecord.Click += new System.EventHandler(this.btnAudacityRecord_Click);
+            // 
+            // btnAudacityPlay
+            // 
+            this.btnAudacityPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAudacityPlay.Location = new System.Drawing.Point(694, 88);
+            this.btnAudacityPlay.Name = "btnAudacityPlay";
+            this.btnAudacityPlay.Size = new System.Drawing.Size(100, 50);
+            this.btnAudacityPlay.TabIndex = 22;
+            this.btnAudacityPlay.Text = "Play";
+            this.btnAudacityPlay.UseVisualStyleBackColor = true;
+            this.btnAudacityPlay.Click += new System.EventHandler(this.btnAudacityPlay_Click);
+            // 
+            // btnAudacitySkipToEnd
+            // 
+            this.btnAudacitySkipToEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAudacitySkipToEnd.Location = new System.Drawing.Point(694, 144);
+            this.btnAudacitySkipToEnd.Name = "btnAudacitySkipToEnd";
+            this.btnAudacitySkipToEnd.Size = new System.Drawing.Size(100, 50);
+            this.btnAudacitySkipToEnd.TabIndex = 23;
+            this.btnAudacitySkipToEnd.Text = "Skip to End";
+            this.btnAudacitySkipToEnd.UseVisualStyleBackColor = true;
+            this.btnAudacitySkipToEnd.Click += new System.EventHandler(this.btnAudacitySkipToEnd_Click);
+            // 
+            // btnAudacityStop
+            // 
+            this.btnAudacityStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAudacityStop.Location = new System.Drawing.Point(800, 88);
+            this.btnAudacityStop.Name = "btnAudacityStop";
+            this.btnAudacityStop.Size = new System.Drawing.Size(100, 50);
+            this.btnAudacityStop.TabIndex = 24;
+            this.btnAudacityStop.Text = "Stop";
+            this.btnAudacityStop.UseVisualStyleBackColor = true;
+            this.btnAudacityStop.Click += new System.EventHandler(this.btnAudacityStop_Click);
+            // 
+            // btnAudacityPause
+            // 
+            this.btnAudacityPause.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAudacityPause.Location = new System.Drawing.Point(588, 88);
+            this.btnAudacityPause.Name = "btnAudacityPause";
+            this.btnAudacityPause.Size = new System.Drawing.Size(100, 50);
+            this.btnAudacityPause.TabIndex = 25;
+            this.btnAudacityPause.Text = "Pause";
+            this.btnAudacityPause.UseVisualStyleBackColor = true;
+            this.btnAudacityPause.Click += new System.EventHandler(this.btnAudacityPause_Click);
+            // 
+            // btnAudacitySkipToStart
+            // 
+            this.btnAudacitySkipToStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAudacitySkipToStart.Location = new System.Drawing.Point(588, 144);
+            this.btnAudacitySkipToStart.Name = "btnAudacitySkipToStart";
+            this.btnAudacitySkipToStart.Size = new System.Drawing.Size(100, 50);
+            this.btnAudacitySkipToStart.TabIndex = 26;
+            this.btnAudacitySkipToStart.Text = "Skip to Start";
+            this.btnAudacitySkipToStart.UseVisualStyleBackColor = true;
+            this.btnAudacitySkipToStart.Click += new System.EventHandler(this.btnAudacitySkipToStart_Click);
             // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(595, 530);
+            this.ClientSize = new System.Drawing.Size(912, 527);
+            this.Controls.Add(this.btnAudacitySkipToStart);
+            this.Controls.Add(this.btnAudacityPause);
+            this.Controls.Add(this.btnAudacityStop);
+            this.Controls.Add(this.btnAudacitySkipToEnd);
+            this.Controls.Add(this.btnAudacityPlay);
+            this.Controls.Add(this.btnAudacityRecord);
+            this.Controls.Add(this.btnAudacity);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.tabDisplayChoice);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
@@ -242,8 +345,8 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabDisplayChoice.ResumeLayout(false);
             this.tabLocation.ResumeLayout(false);
-            this.tabFrequency.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartLocation)).EndInit();
+            this.tabFrequency.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartFrequency)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -266,6 +369,14 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chartLocation;
         private System.Windows.Forms.TabPage tabFrequency;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartFrequency;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnAudacity;
+        private System.Windows.Forms.Button btnAudacityRecord;
+        private System.Windows.Forms.Button btnAudacityPlay;
+        private System.Windows.Forms.Button btnAudacitySkipToEnd;
+        private System.Windows.Forms.Button btnAudacityStop;
+        private System.Windows.Forms.Button btnAudacityPause;
+        private System.Windows.Forms.Button btnAudacitySkipToStart;
     }
 }
 

@@ -4,12 +4,18 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using System.Windows.Forms.DataVisualization.Charting;
 using System.IO.Ports;
+
+//UI Automation with White
+using TestStack.White;
+using TestStack.White.WindowsAPI;
+using TestStack.White.UIItems;
 
 namespace ASAR
 {
@@ -24,8 +30,22 @@ namespace ASAR
 
     public partial class formMain : Form
     {
+        //Charts
         Series seriesLocation;
         Series seriesFrequency;
+
+        //UI Automation Applications
+        TestStack.White.Application appAudacity;
+        TestStack.White.UIItems.WindowItems.Window audacityWindow;
+        TestStack.White.UIItems.Panel audacityToolDock;
+        TestStack.White.UIItems.Panel audacityTransportToolbar;
+        TestStack.White.UIItems.Button AudacityButton_Record;
+        TestStack.White.UIItems.Button AudacityButton_Pause;
+        TestStack.White.UIItems.Button AudacityButton_Play;
+        TestStack.White.UIItems.Button AudacityButton_Stop;
+        TestStack.White.UIItems.Button AudacityButton_SkipToStart;
+        TestStack.White.UIItems.Button AudacityButton_SkipToEnd;
+
 
         public formMain()
         {
@@ -84,5 +104,60 @@ namespace ASAR
         {
 
         }
+
+        private void btnAudacity_Click(object sender, EventArgs e)
+        {
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Audacity\\Audacity.exe"))
+            {
+                MessageBox.Show("Audacity is not installed...");
+                return;
+            }
+            appAudacity = TestStack.White.Application.Launch(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Audacity\\Audacity.exe");
+
+            audacityWindow = appAudacity.GetWindow("Audacity", TestStack.White.Factory.InitializeOption.NoCache);
+            audacityToolDock = (TestStack.White.UIItems.Panel)audacityWindow.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("ToolDock"))[0];
+            audacityTransportToolbar = (TestStack.White.UIItems.Panel)audacityToolDock.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Audacity Transport ToolBar"))[0];
+
+            AudacityButton_Record = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Record"))[0];
+            AudacityButton_Pause = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Pause"))[0];
+            AudacityButton_Play = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Play"))[0];
+            AudacityButton_Stop = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Stop"))[0];
+            AudacityButton_SkipToStart = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Skip to Start"))[0];
+            AudacityButton_SkipToEnd = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Skip to End"))[0];
+
+        }
+
+        private void btnAudacityRecord_Click(object sender, EventArgs e)
+        {
+            AudacityButton_Record.Click();
+        }
+
+        private void btnAudacityStop_Click(object sender, EventArgs e)
+        {
+            if (AudacityButton_Stop.Enabled)
+                AudacityButton_Stop.Click();
+        }
+
+        private void btnAudacityPause_Click(object sender, EventArgs e)
+        {
+            AudacityButton_Pause.Click();
+        }
+
+        private void btnAudacityPlay_Click(object sender, EventArgs e)
+        {
+            AudacityButton_Play.Click();
+        }
+
+        private void btnAudacitySkipToStart_Click(object sender, EventArgs e)
+        {
+            AudacityButton_SkipToStart.Click();
+        }
+
+        private void btnAudacitySkipToEnd_Click(object sender, EventArgs e)
+        {
+            if (AudacityButton_SkipToEnd.Enabled)
+                AudacityButton_SkipToEnd.Click();
+        }
+
     }
 }
