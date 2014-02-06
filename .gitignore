@@ -1,8 +1,10 @@
 ASAR/Debug/*
 ASAR/bin/Debug/*
-ASAR/bin/Release/*.config
-ASAR/bin/Release/*.manifest
-ASAR/bin/Release/*.vshost.*
+ASAR/Release/*.config
+ASAR/Release/*.manifest
+ASAR/Release/*.vshost.*
 ASAR/obj/*
-ASAR/*.suo
-ASAR/*sdf
+ASAR_cpp/Debug/*
+ASAR_cpp/Release/*
+*.suo
+*sdf
