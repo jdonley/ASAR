@@ -185,7 +185,9 @@ namespace ASAR
         {
             try
             {
+                Point cursorPos = System.Windows.Forms.Cursor.Position;
                 audacityWindow.Close();
+                System.Windows.Forms.Cursor.Position = cursorPos;
             }
             catch (Exception ex)
             { }
