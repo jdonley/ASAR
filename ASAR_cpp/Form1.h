@@ -97,10 +97,10 @@ namespace ASAR {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^  chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::Legend^  legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			System::Windows::Forms::DataVisualization::Charting::Series^  series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Title^  title1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Title());
+			System::Windows::Forms::DataVisualization::Charting::ChartArea^  chartArea6 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+			System::Windows::Forms::DataVisualization::Charting::Legend^  legend6 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
+			System::Windows::Forms::DataVisualization::Charting::Series^  series6 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+			System::Windows::Forms::DataVisualization::Charting::Title^  title6 = (gcnew System::Windows::Forms::DataVisualization::Charting::Title());
 			this->btnRotateCCW = (gcnew System::Windows::Forms::Button());
 			this->btnRotateCW = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
@@ -210,32 +210,32 @@ namespace ASAR {
 			// chartLocation
 			// 
 			this->chartLocation->BackColor = System::Drawing::Color::Transparent;
-			chartArea1->Name = L"ChartArea1";
-			this->chartLocation->ChartAreas->Add(chartArea1);
-			legend1->Enabled = false;
-			legend1->Name = L"Legend1";
-			this->chartLocation->Legends->Add(legend1);
+			chartArea6->Name = L"ChartArea1";
+			this->chartLocation->ChartAreas->Add(chartArea6);
+			legend6->Enabled = false;
+			legend6->Name = L"Legend1";
+			this->chartLocation->Legends->Add(legend6);
 			this->chartLocation->Location = System::Drawing::Point(15, 206);
 			this->chartLocation->Name = L"chartLocation";
-			series1->BorderWidth = 5;
-			series1->ChartArea = L"ChartArea1";
-			series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Polar;
-			series1->Legend = L"Legend1";
-			series1->MarkerBorderColor = System::Drawing::Color::Blue;
-			series1->MarkerBorderWidth = 2;
-			series1->MarkerSize = 15;
-			series1->MarkerStep = 2;
-			series1->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
-			series1->Name = L"Location";
-			series1->YAxisType = System::Windows::Forms::DataVisualization::Charting::AxisType::Secondary;
-			this->chartLocation->Series->Add(series1);
+			series6->BorderWidth = 5;
+			series6->ChartArea = L"ChartArea1";
+			series6->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Polar;
+			series6->Legend = L"Legend1";
+			series6->MarkerBorderColor = System::Drawing::Color::Blue;
+			series6->MarkerBorderWidth = 2;
+			series6->MarkerSize = 15;
+			series6->MarkerStep = 2;
+			series6->MarkerStyle = System::Windows::Forms::DataVisualization::Charting::MarkerStyle::Circle;
+			series6->Name = L"Location";
+			series6->YAxisType = System::Windows::Forms::DataVisualization::Charting::AxisType::Secondary;
+			this->chartLocation->Series->Add(series6);
 			this->chartLocation->Size = System::Drawing::Size(391, 316);
 			this->chartLocation->TabIndex = 8;
-			title1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			title6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			title1->Name = L"Location";
-			title1->Text = L"Location";
-			this->chartLocation->Titles->Add(title1);
+			title6->Name = L"Location";
+			title6->Text = L"Location";
+			this->chartLocation->Titles->Add(title6);
 			// 
 			// btnAudacitySkipToStart
 			// 
@@ -247,6 +247,7 @@ namespace ASAR {
 			this->btnAudacitySkipToStart->TabIndex = 34;
 			this->btnAudacitySkipToStart->Text = L"Skip to Start";
 			this->btnAudacitySkipToStart->UseVisualStyleBackColor = true;
+			this->btnAudacitySkipToStart->Click += gcnew System::EventHandler(this, &Form1::btnAudacitySkipToStart_Click);
 			// 
 			// btnAudacityPause
 			// 
@@ -258,6 +259,7 @@ namespace ASAR {
 			this->btnAudacityPause->TabIndex = 33;
 			this->btnAudacityPause->Text = L"Pause";
 			this->btnAudacityPause->UseVisualStyleBackColor = true;
+			this->btnAudacityPause->Click += gcnew System::EventHandler(this, &Form1::btnAudacityPause_Click);
 			// 
 			// btnAudacityStop
 			// 
@@ -269,6 +271,7 @@ namespace ASAR {
 			this->btnAudacityStop->TabIndex = 32;
 			this->btnAudacityStop->Text = L"Stop";
 			this->btnAudacityStop->UseVisualStyleBackColor = true;
+			this->btnAudacityStop->Click += gcnew System::EventHandler(this, &Form1::btnAudacityStop_Click);
 			// 
 			// btnAudacitySkipToEnd
 			// 
@@ -280,6 +283,7 @@ namespace ASAR {
 			this->btnAudacitySkipToEnd->TabIndex = 31;
 			this->btnAudacitySkipToEnd->Text = L"Skip to End";
 			this->btnAudacitySkipToEnd->UseVisualStyleBackColor = true;
+			this->btnAudacitySkipToEnd->Click += gcnew System::EventHandler(this, &Form1::btnAudacitySkipToEnd_Click);
 			// 
 			// btnAudacityPlay
 			// 
@@ -291,6 +295,7 @@ namespace ASAR {
 			this->btnAudacityPlay->TabIndex = 30;
 			this->btnAudacityPlay->Text = L"Play";
 			this->btnAudacityPlay->UseVisualStyleBackColor = true;
+			this->btnAudacityPlay->Click += gcnew System::EventHandler(this, &Form1::btnAudacityPlay_Click);
 			// 
 			// btnAudacityRecord
 			// 
@@ -302,6 +307,7 @@ namespace ASAR {
 			this->btnAudacityRecord->TabIndex = 29;
 			this->btnAudacityRecord->Text = L"Record";
 			this->btnAudacityRecord->UseVisualStyleBackColor = true;
+			this->btnAudacityRecord->Click += gcnew System::EventHandler(this, &Form1::btnAudacityRecord_Click);
 			// 
 			// btnAudacity
 			// 
@@ -430,7 +436,27 @@ private: System::Void btnAudacity_Click(System::Object^  sender, System::EventAr
 			 AudacityButton_Stop = (TestStack::White::UIItems::Button ^)audacityTransportToolbar->GetMultiple(TestStack::White::UIItems::Finders::SearchCriteria::ByText("Stop"))[0];
 			 AudacityButton_SkipToStart = (TestStack::White::UIItems::Button ^)audacityTransportToolbar->GetMultiple(TestStack::White::UIItems::Finders::SearchCriteria::ByText("Skip to Start"))[0];
 			 AudacityButton_SkipToEnd = (TestStack::White::UIItems::Button ^)audacityTransportToolbar->GetMultiple(TestStack::White::UIItems::Finders::SearchCriteria::ByText("Skip to End"))[0];
-}
+	}
+	private: System::Void btnAudacityPause_Click(System::Object^  sender, System::EventArgs^  e) {
+				 AudacityButton_Pause->Click();
+	}
+	private: System::Void btnAudacityPlay_Click(System::Object^  sender, System::EventArgs^  e) {
+				 AudacityButton_Play->Click();
+	}
+	private: System::Void btnAudacityStop_Click(System::Object^  sender, System::EventArgs^  e) {
+				 if (AudacityButton_Stop->Enabled)
+					 AudacityButton_Stop->Click();
+	}
+	private: System::Void btnAudacitySkipToStart_Click(System::Object^  sender, System::EventArgs^  e) {
+				 AudacityButton_SkipToStart->Click();
+	}
+	private: System::Void btnAudacitySkipToEnd_Click(System::Object^  sender, System::EventArgs^  e) {
+				 if (AudacityButton_SkipToEnd->Enabled)
+					 AudacityButton_SkipToEnd->Click();
+	}
+	private: System::Void btnAudacityRecord_Click(System::Object^  sender, System::EventArgs^  e) {
+				 AudacityButton_Record->Click();
+	}
 };
 }
 

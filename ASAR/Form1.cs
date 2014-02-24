@@ -46,7 +46,6 @@ namespace ASAR
         TestStack.White.UIItems.Button AudacityButton_SkipToStart;
         TestStack.White.UIItems.Button AudacityButton_SkipToEnd;
 
-
         public formMain()
         {
             InitializeComponent();
@@ -144,51 +143,86 @@ namespace ASAR
                 MessageBox.Show("Audacity is not installed...");
                 return;
             }
-            appAudacity = TestStack.White.Application.Launch(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Audacity\\Audacity.exe");
+            try
+            {
+                System.Diagnostics.ProcessStartInfo audacityProcess = new System.Diagnostics.ProcessStartInfo(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) + "\\Audacity\\Audacity.exe");
+                appAudacity = TestStack.White.Application.AttachOrLaunch(audacityProcess);
 
-            audacityWindow = appAudacity.GetWindow("Audacity", TestStack.White.Factory.InitializeOption.NoCache);
-            audacityToolDock = (TestStack.White.UIItems.Panel)audacityWindow.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("ToolDock"))[0];
-            audacityTransportToolbar = (TestStack.White.UIItems.Panel)audacityToolDock.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Audacity Transport ToolBar"))[0];
+                audacityWindow = appAudacity.GetWindow("Audacity", TestStack.White.Factory.InitializeOption.NoCache);
+                audacityToolDock = (TestStack.White.UIItems.Panel)audacityWindow.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("ToolDock"))[0];
+                audacityTransportToolbar = (TestStack.White.UIItems.Panel)audacityToolDock.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Audacity Transport ToolBar"))[0];
 
-            AudacityButton_Record = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Record"))[0];
-            AudacityButton_Pause = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Pause"))[0];
-            AudacityButton_Play = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Play"))[0];
-            AudacityButton_Stop = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Stop"))[0];
-            AudacityButton_SkipToStart = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Skip to Start"))[0];
-            AudacityButton_SkipToEnd = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Skip to End"))[0];
+                AudacityButton_Record = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Record"))[0];
+                AudacityButton_Pause = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Pause"))[0];
+                AudacityButton_Play = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Play"))[0];
+                AudacityButton_Stop = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Stop"))[0];
+                AudacityButton_SkipToStart = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Skip to Start"))[0];
+                AudacityButton_SkipToEnd = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Skip to End"))[0];
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Window Unavailable\n"+ex.Message);
+            }
+
+        }
+        private void click_ExternBtn(TestStack.White.UIItems.Button Button_)
+        {
+            try
+            {
+                if (Button_.Enabled)
+                {
+                    Point cursorPos = System.Windows.Forms.Cursor.Position;
+                    Button_.Click();
+                    System.Windows.Forms.Cursor.Position = cursorPos;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Button Unavailable");
+            }
         }
 
         private void btnAudacityRecord_Click(object sender, EventArgs e)
-        {
-            AudacityButton_Record.Click();
+        {            
+            click_ExternBtn(AudacityButton_Record);
         }
 
         private void btnAudacityStop_Click(object sender, EventArgs e)
         {
-            if (AudacityButton_Stop.Enabled)
-                AudacityButton_Stop.Click();
+            click_ExternBtn(AudacityButton_Stop);
         }
 
         private void btnAudacityPause_Click(object sender, EventArgs e)
         {
-            AudacityButton_Pause.Click();
+            click_ExternBtn(AudacityButton_Pause);
         }
 
         private void btnAudacityPlay_Click(object sender, EventArgs e)
         {
-            AudacityButton_Play.Click();
+            click_ExternBtn(AudacityButton_Play);
         }
 
         private void btnAudacitySkipToStart_Click(object sender, EventArgs e)
         {
-            AudacityButton_SkipToStart.Click();
+            click_ExternBtn(AudacityButton_SkipToStart);
         }
 
         private void btnAudacitySkipToEnd_Click(object sender, EventArgs e)
         {
-            if (AudacityButton_SkipToEnd.Enabled)
-                AudacityButton_SkipToEnd.Click();
+            click_ExternBtn(AudacityButton_SkipToEnd);
+        }
+
+        private void formMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                Point cursorPos = System.Windows.Forms.Cursor.Position;
+                audacityWindow.Close();
+                System.Windows.Forms.Cursor.Position = cursorPos;
+            }
+            catch (Exception ex)
+            { }
         }
 
         private void button10_Click(object sender, EventArgs e)
