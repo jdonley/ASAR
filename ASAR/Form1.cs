@@ -69,16 +69,16 @@ namespace ASAR
                 seriesFrequency.Points.AddY(Math.Sin(((double)i / frequencyResolution) / Math.PI * 10)); //This is just a sample to see what the chart looks like
 
             //Initial serial port settings
-            serialPort.PortName = "COM1";
-            serialPort.BaudRate = 9600;
-            serialPort.DataBits = 8;
-            serialPort.StopBits = StopBits.One;
-            serialPort.Parity = Parity.None;
-            serialPort.Handshake = Handshake.None;
-            serialPort.ReadBufferSize = 4096;
-            serialPort.ReadTimeout = -1;
-            serialPort.WriteBufferSize = 2048;
-            serialPort.WriteTimeout = -1;
+            serialPort1.PortName = "COM1";
+            serialPort1.BaudRate = 9600;
+            serialPort1.DataBits = 8;
+            serialPort1.StopBits = StopBits.One;
+            serialPort1.Parity = Parity.None;
+            serialPort1.Handshake = Handshake.None;
+            serialPort1.ReadBufferSize = 4096;
+            serialPort1.ReadTimeout = 500;
+            serialPort1.WriteBufferSize = 2048;
+            serialPort1.WriteTimeout = 500;
 
             //Find available COM ports and list them
             findPorts();
