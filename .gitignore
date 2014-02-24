@@ -8,3 +8,4 @@ ASAR_cpp/Debug/*
 ASAR_cpp/Release/*
 *.suo
 *sdf
+packages/*
