@@ -54,45 +54,77 @@ namespace ASAR
 
         private void Form1_Load(object sender, EventArgs e)
         {
-        // Code to run when the Form loads
-		    // Initialise the location graph
-		    seriesLocation = chartLocation.Series[0];
-			seriesLocation.Points.Clear();
-			seriesLocation.Points.AddXY(0, 10);
-			seriesLocation.Points.AddXY(0, 0);
+            // Code to run when the Form loads
+            // Initialise the location graph
+            seriesLocation = chartLocation.Series[0];
+            seriesLocation.Points.Clear();
+            seriesLocation.Points.AddXY(0, 10);
+            seriesLocation.Points.AddXY(0, 0);
 
             // Initialise the frequency graph
             seriesFrequency = chartFrequency.Series[0];
             seriesFrequency.Points.Clear();
             int frequencyResolution = 50;
             for (int i = 0; i < frequencyResolution; i++)
-                seriesFrequency.Points.AddY( Math.Sin(((double)i / frequencyResolution) / Math.PI * 10)); //This is just a sample to see what the chart looks like
+                seriesFrequency.Points.AddY(Math.Sin(((double)i / frequencyResolution) / Math.PI * 10)); //This is just a sample to see what the chart looks like
 
-                //Initial serial port settings
-                serialPort.PortName = "COM1";
-			serialPort.BaudRate = 9600;
-			serialPort.DataBits = 8;
-			serialPort.StopBits = StopBits.One;
-			serialPort.Parity = Parity.None;
-			serialPort.Handshake = Handshake.None;
-			serialPort.ReadBufferSize = 4096;
-			serialPort.ReadTimeout = -1;
-			serialPort.WriteBufferSize = 2048;
-			serialPort.WriteTimeout = -1;
+            //Initial serial port settings
+            serialPort.PortName = "COM1";
+            serialPort.BaudRate = 9600;
+            serialPort.DataBits = 8;
+            serialPort.StopBits = StopBits.One;
+            serialPort.Parity = Parity.None;
+            serialPort.Handshake = Handshake.None;
+            serialPort.ReadBufferSize = 4096;
+            serialPort.ReadTimeout = -1;
+            serialPort.WriteBufferSize = 2048;
+            serialPort.WriteTimeout = -1;
+
+            //Find available COM ports and list them
+            findPorts();
         }
 
         private void btnRotateCCW_Click(object sender, EventArgs e)
         {
+            //Rotate Left
+            String rotation = comboBox3.Text;
+            String textmessage = "l";
             double step = -7.5;
-			lblCurrentPosition.Text = (Convert.ToDouble(lblCurrentPosition.Text.Replace("°", "")) + step).ToString() + "°";
-			seriesLocation.Points[0].XValue += step;
+
+            if (serialPort1.IsOpen)
+            {
+                // Update Rotation Degrees and Send command
+                serialPort1.WriteLine(rotation);
+                serialPort1.WriteLine(textmessage);
+                lblCurrentPosition.Text = (Convert.ToDouble(lblCurrentPosition.Text.Replace("°", "")) + step).ToString() + "°";
+                seriesLocation.Points[0].XValue += step;
+            }
+            else
+            {
+                textBox1.Text = "Port Is Not Open";
+            }
+
         }
 
         private void btnRotateCW_Click(object sender, EventArgs e)
         {
+            //Rotate Right
+            String rotation = comboBox3.Text;
+            String textmessage = "r";
             double step = 7.5;
-			lblCurrentPosition.Text = (Convert.ToDouble(lblCurrentPosition.Text.Replace("°", "")) + step).ToString() + "°";
-			seriesLocation.Points[0].XValue += step;
+
+            if (serialPort1.IsOpen)
+            {
+                // Update Rotation Degrees and Send command
+                serialPort1.WriteLine(rotation);
+                serialPort1.WriteLine(textmessage);
+                lblCurrentPosition.Text = (Convert.ToDouble(lblCurrentPosition.Text.Replace("°", "")) + step).ToString() + "°";
+                seriesLocation.Points[0].XValue += step;
+            }
+            else
+            {
+                textBox1.Text = "Port Is Not Open";
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -169,5 +201,134 @@ namespace ASAR
 
         }
 
+        private void findPorts()
+        {
+            // Get availble port names
+            string[] objectArray = SerialPort.GetPortNames();
+            // Add string to combobox
+            comboBox1.Items.AddRange(objectArray);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            //Initialise Button
+            //int _Baud = 9600;
+
+            textBox1.Text = String.Empty;
+            //this->serialPort1->BaudRate = Int32::Parse(System::String ^_Baud);
+            //if (this->comboBox1->Text == String::Empty || this->comboBox2->Text == String::Empty) {
+            if (comboBox1.Text == String.Empty)
+            {
+                // Check port setting are selected
+                textBox1.Text = "Select Port Settings";
+            }
+            else
+            {
+                try
+                {
+                    if (!serialPort1.IsOpen)
+                    {
+                        serialPort1.PortName = comboBox1.Text;
+                        //this->serialPort1->BaudRate = Int32::Parse(this->comboBox2->Text);
+                        serialPort1.ReadTimeout = 500;
+                        serialPort1.WriteTimeout = 500;
+                        textBox1.Text = "Enter Message Here";
+                        // Open Serial Port
+                        serialPort1.Open();
+                        progressBar1.Value = 100;
+                        textBox1.Text = "Serial Port Initialised";
+                        button5.Enabled = false;
+                        comboBox2.Enabled = false;
+                        comboBox1.Enabled = false;
+                    }
+                    else
+                    {
+                        textBox1.Text = "Port is not opened";
+                    }
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    textBox1.Text = "Unauthorised Access";
+                }
+
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            // Close Port
+            serialPort1.Close();
+            // Update Status Bar
+            progressBar1.Value = 0;
+            // Enable Read Button
+            // this->button8_Click->Enabled = true;
+            // Enable Init Button
+            button5.Enabled = true;
+        }
+
+        private void btnReturnBoomHome_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnStart360Rec_Click(object sender, EventArgs e)
+        {
+            //
+            //Start 360 degree recording sequence here
+            //
+
+            //Something like
+            int recDuration = 10000; //10000ms = 10s  //TODO: Should obtain this value from the duration of the audio file used !
+            for (double angle = 0; angle < 360; angle += 7.5)
+            {
+                btnAudacityRecord_Click(sender, e); // start recording
+                System.Threading.Thread.Sleep(recDuration + 100/*plus buffer*/); //Sleep program for duration of recording
+                btnAudacityStop_Click(sender, e); // stop recording
+                btnRotateCW_Click(sender, e); // Rotate to next position
+            }
+            //Last angle's recording
+            btnAudacityRecord_Click(sender, e); // start recording
+            System.Threading.Thread.Sleep(recDuration + 100/*plus buffer*/);//Sleep program for duration of recording
+            btnAudacityStop_Click(sender, e); // stop recording
+
+            btnReturnBoomHome_Click(sender, e); // Return the boom to it's home location
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            // Send Button
+            String name = serialPort1.PortName;
+            String textmessage = textBox2.Text;
+            if (serialPort1.IsOpen)
+            {
+                serialPort1.WriteLine(textmessage);
+            }
+            else
+            {
+                textBox1.Text = "Port Is Not Open";
+            }
+        }
+
+        private void Recieve_Click(object sender, EventArgs e)
+        {
+            if (serialPort1.IsOpen)
+            {
+                textBox1.Text = String.Empty;
+                try
+                {
+                    textBox1.Text = serialPort1.ReadLine();
+                }
+                catch (TimeoutException)
+                {
+                    textBox1.Text = "Timeout Exception";
+                }
+                button5.Enabled = false;
+            }
+            else
+            {
+                textBox1.Text = "Port Is Not Open";
+            }
+            // Recieve Button
+        }        
     }
 }

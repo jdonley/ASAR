@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title5 = new System.Windows.Forms.DataVisualization.Charting.Title();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title6 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title11 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title12 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.serialPort = new System.IO.Ports.SerialPort(this.components);
             this.btnAudacityRecord = new System.Windows.Forms.Button();
             this.btnAudacityPlay = new System.Windows.Forms.Button();
@@ -44,7 +44,7 @@
             this.btnAudacityPause = new System.Windows.Forms.Button();
             this.btnAudacitySkipToStart = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.button8 = new System.Windows.Forms.Button();
+            this.btnReturnBoomHome = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -59,7 +59,7 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnStart360Rec = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnRotateCCW = new System.Windows.Forms.Button();
             this.btnRotateCW = new System.Windows.Forms.Button();
@@ -170,23 +170,25 @@
             this.serialPort1.ReadTimeout = 500;
             this.serialPort1.WriteTimeout = 500;
             // 
-            // button8
+            // btnReturnBoomHome
             // 
-            this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btnReturnBoomHome.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8.Location = new System.Drawing.Point(197, 56);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(92, 50);
-            this.button8.TabIndex = 46;
-            this.button8.Text = "Return Home";
-            this.button8.UseVisualStyleBackColor = true;
+            this.btnReturnBoomHome.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReturnBoomHome.Location = new System.Drawing.Point(197, 50);
+            this.btnReturnBoomHome.Name = "btnReturnBoomHome";
+            this.btnReturnBoomHome.Size = new System.Drawing.Size(92, 50);
+            this.btnReturnBoomHome.TabIndex = 46;
+            this.btnReturnBoomHome.Text = "Return Home";
+            this.btnReturnBoomHome.UseVisualStyleBackColor = true;
+            this.btnReturnBoomHome.Click += new System.EventHandler(this.btnReturnBoomHome_Click);
             // 
             // label6
             // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 82);
+            this.label6.Location = new System.Drawing.Point(26, 82);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(47, 13);
             this.label6.TabIndex = 45;
@@ -213,37 +215,43 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 0);
+            this.label5.Location = new System.Drawing.Point(11, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(59, 13);
+            this.label5.Size = new System.Drawing.Size(37, 26);
             this.label5.TabIndex = 43;
             this.label5.Text = "Port Status";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(68, 3);
+            this.progressBar1.BackColor = System.Drawing.SystemColors.Control;
+            this.progressBar1.Location = new System.Drawing.Point(54, 3);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(18, 10);
+            this.progressBar1.Size = new System.Drawing.Size(16, 10);
             this.progressBar1.TabIndex = 42;
             // 
             // Recieve
             // 
+            this.Recieve.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Recieve.Location = new System.Drawing.Point(79, 438);
             this.Recieve.Name = "Recieve";
-            this.Recieve.Size = new System.Drawing.Size(67, 19);
+            this.Recieve.Size = new System.Drawing.Size(70, 30);
             this.Recieve.TabIndex = 41;
             this.Recieve.Text = "Recieve";
             this.Recieve.UseVisualStyleBackColor = true;
+            this.Recieve.Click += new System.EventHandler(this.Recieve_Click);
             // 
             // button7
             // 
             this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button7.Location = new System.Drawing.Point(3, 438);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(70, 19);
+            this.button7.Size = new System.Drawing.Size(70, 30);
             this.button7.TabIndex = 40;
             this.button7.Text = "Send";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // textBox2
             // 
@@ -266,6 +274,7 @@
             this.button6.TabIndex = 38;
             this.button6.Text = "Close Serial Port";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button5
             // 
@@ -277,11 +286,13 @@
             this.button5.TabIndex = 37;
             this.button5.Text = "Initialise Serial Port";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 41);
+            this.label4.Location = new System.Drawing.Point(15, 41);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(58, 13);
             this.label4.TabIndex = 36;
@@ -289,8 +300,9 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Location = new System.Drawing.Point(21, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(52, 13);
             this.label2.TabIndex = 35;
@@ -339,18 +351,21 @@
             this.textBox1.TabIndex = 32;
             this.textBox1.Text = "Recieve here";
             // 
-            // button1
+            // btnStart360Rec
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btnStart360Rec.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(3, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(91, 47);
-            this.button1.TabIndex = 30;
-            this.button1.Text = "Start 360 degree Recording";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnStart360Rec.BackColor = System.Drawing.Color.MistyRose;
+            this.btnStart360Rec.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStart360Rec.Location = new System.Drawing.Point(0, 0);
+            this.btnStart360Rec.Margin = new System.Windows.Forms.Padding(0);
+            this.btnStart360Rec.Name = "btnStart360Rec";
+            this.btnStart360Rec.Size = new System.Drawing.Size(97, 47);
+            this.btnStart360Rec.TabIndex = 30;
+            this.btnStart360Rec.Text = "Start 360° Recording";
+            this.btnStart360Rec.UseVisualStyleBackColor = false;
+            this.btnStart360Rec.Click += new System.EventHandler(this.btnStart360Rec_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -379,11 +394,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRotateCCW.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRotateCCW.Location = new System.Drawing.Point(3, 56);
+            this.btnRotateCCW.Location = new System.Drawing.Point(3, 50);
             this.btnRotateCCW.Name = "btnRotateCCW";
             this.btnRotateCCW.Size = new System.Drawing.Size(91, 50);
             this.btnRotateCCW.TabIndex = 9;
-            this.btnRotateCCW.Text = "Rotate Counter-Clockwise";
+            this.btnRotateCCW.Text = "Rotate CCW";
             this.btnRotateCCW.UseVisualStyleBackColor = true;
             this.btnRotateCCW.Click += new System.EventHandler(this.btnRotateCCW_Click);
             // 
@@ -393,11 +408,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRotateCW.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRotateCW.Location = new System.Drawing.Point(100, 56);
+            this.btnRotateCW.Location = new System.Drawing.Point(100, 50);
             this.btnRotateCW.Name = "btnRotateCW";
             this.btnRotateCW.Size = new System.Drawing.Size(91, 50);
             this.btnRotateCW.TabIndex = 10;
-            this.btnRotateCW.Text = "Rotate Clockwise";
+            this.btnRotateCW.Text = "Rotate CW";
             this.btnRotateCW.UseVisualStyleBackColor = true;
             this.btnRotateCW.Click += new System.EventHandler(this.btnRotateCW_Click);
             // 
@@ -417,22 +432,22 @@
             this.chartFrequency.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea5.Name = "ChartArea1";
-            this.chartFrequency.ChartAreas.Add(chartArea5);
+            chartArea11.Name = "ChartArea1";
+            this.chartFrequency.ChartAreas.Add(chartArea11);
             this.chartFrequency.Location = new System.Drawing.Point(6, 6);
             this.chartFrequency.Name = "chartFrequency";
             this.chartFrequency.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series5.ChartArea = "ChartArea1";
-            series5.Name = "Series1";
-            this.chartFrequency.Series.Add(series5);
+            series11.ChartArea = "ChartArea1";
+            series11.Name = "Series1";
+            this.chartFrequency.Series.Add(series11);
             this.chartFrequency.Size = new System.Drawing.Size(266, 350);
             this.chartFrequency.TabIndex = 0;
             this.chartFrequency.Text = "chartFrequency";
-            title5.Alignment = System.Drawing.ContentAlignment.TopCenter;
-            title5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            title5.Name = "Frequency";
-            title5.Text = "Frequency";
-            this.chartFrequency.Titles.Add(title5);
+            title11.Alignment = System.Drawing.ContentAlignment.TopCenter;
+            title11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            title11.Name = "Frequency";
+            title11.Text = "Frequency";
+            this.chartFrequency.Titles.Add(title11);
             // 
             // tabLocation
             // 
@@ -440,7 +455,7 @@
             this.tabLocation.Location = new System.Drawing.Point(4, 29);
             this.tabLocation.Name = "tabLocation";
             this.tabLocation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLocation.Size = new System.Drawing.Size(278, 362);
+            this.tabLocation.Size = new System.Drawing.Size(278, 368);
             this.tabLocation.TabIndex = 0;
             this.tabLocation.Text = "Location";
             this.tabLocation.UseVisualStyleBackColor = true;
@@ -451,31 +466,31 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chartLocation.BackColor = System.Drawing.Color.Transparent;
-            chartArea6.Name = "ChartArea1";
-            this.chartLocation.ChartAreas.Add(chartArea6);
-            legend3.Enabled = false;
-            legend3.Name = "Legend1";
-            this.chartLocation.Legends.Add(legend3);
+            chartArea12.Name = "ChartArea1";
+            this.chartLocation.ChartAreas.Add(chartArea12);
+            legend6.Enabled = false;
+            legend6.Name = "Legend1";
+            this.chartLocation.Legends.Add(legend6);
             this.chartLocation.Location = new System.Drawing.Point(6, 6);
             this.chartLocation.Name = "chartLocation";
-            series6.BorderWidth = 5;
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Polar;
-            series6.Legend = "Legend1";
-            series6.MarkerBorderColor = System.Drawing.Color.Blue;
-            series6.MarkerBorderWidth = 2;
-            series6.MarkerSize = 15;
-            series6.MarkerStep = 2;
-            series6.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series6.Name = "Location";
-            series6.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            this.chartLocation.Series.Add(series6);
-            this.chartLocation.Size = new System.Drawing.Size(266, 350);
+            series12.BorderWidth = 5;
+            series12.ChartArea = "ChartArea1";
+            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Polar;
+            series12.Legend = "Legend1";
+            series12.MarkerBorderColor = System.Drawing.Color.Blue;
+            series12.MarkerBorderWidth = 2;
+            series12.MarkerSize = 15;
+            series12.MarkerStep = 2;
+            series12.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series12.Name = "Location";
+            series12.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            this.chartLocation.Series.Add(series12);
+            this.chartLocation.Size = new System.Drawing.Size(266, 356);
             this.chartLocation.TabIndex = 18;
-            title6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            title6.Name = "Location";
-            title6.Text = "Location";
-            this.chartLocation.Titles.Add(title6);
+            title12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            title12.Name = "Location";
+            title12.Text = "Location";
+            this.chartLocation.Titles.Add(title12);
             // 
             // tabDisplayChoice
             // 
@@ -486,10 +501,10 @@
             this.tabDisplayChoice.Controls.Add(this.tabLocation);
             this.tabDisplayChoice.Controls.Add(this.tabFrequency);
             this.tabDisplayChoice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabDisplayChoice.Location = new System.Drawing.Point(3, 112);
+            this.tabDisplayChoice.Location = new System.Drawing.Point(3, 106);
             this.tabDisplayChoice.Name = "tabDisplayChoice";
             this.tabDisplayChoice.SelectedIndex = 0;
-            this.tabDisplayChoice.Size = new System.Drawing.Size(286, 395);
+            this.tabDisplayChoice.Size = new System.Drawing.Size(286, 401);
             this.tabDisplayChoice.TabIndex = 18;
             // 
             // tableLayoutPanel2
@@ -505,9 +520,9 @@
             this.tableLayoutPanel2.Controls.Add(this.lblCurrentPosition, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.label1, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnRotateCCW, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.button8, 2, 1);
+            this.tableLayoutPanel2.Controls.Add(this.btnReturnBoomHome, 2, 1);
             this.tableLayoutPanel2.Controls.Add(this.btnRotateCW, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.button1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnStart360Rec, 0, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
@@ -583,12 +598,13 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(100, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 53);
+            this.label1.Size = new System.Drawing.Size(91, 47);
             this.label1.TabIndex = 11;
             this.label1.Text = "Current Position:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblCurrentPosition
             // 
@@ -599,9 +615,10 @@
             this.lblCurrentPosition.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCurrentPosition.Location = new System.Drawing.Point(197, 0);
             this.lblCurrentPosition.Name = "lblCurrentPosition";
-            this.lblCurrentPosition.Size = new System.Drawing.Size(92, 53);
+            this.lblCurrentPosition.Size = new System.Drawing.Size(92, 47);
             this.lblCurrentPosition.TabIndex = 16;
             this.lblCurrentPosition.Text = "0°";
+            this.lblCurrentPosition.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btnAudacity
             // 
@@ -624,15 +641,16 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel3.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.progressBar1, 1, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(225, 438);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(222, 435);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(67, 69);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(73, 75);
             this.tableLayoutPanel3.TabIndex = 50;
             // 
             // formMain
@@ -673,7 +691,7 @@
         private System.Windows.Forms.Button btnAudacityPause;
         private System.Windows.Forms.Button btnAudacitySkipToStart;
         private System.IO.Ports.SerialPort serialPort1;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button btnReturnBoomHome;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Label label5;
@@ -688,7 +706,7 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnStart360Rec;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button btnRotateCCW;
         private System.Windows.Forms.Button btnRotateCW;
