@@ -159,5 +159,15 @@ namespace ASAR
                 AudacityButton_SkipToEnd.Click();
         }
 
+        private void button10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
