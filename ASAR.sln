@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASAR", "ASAR\ASAR.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestStack.White", "Third Party Libraries\White-0.12.0\src\TestStack.White\TestStack.White.csproj", "{12C59CE2-9CF7-44F4-B27C-90754609F979}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ASARcpp", "ASAR_cpp\ASARcpp.vcxproj", "{1D786646-FAD3-4484-9050-6FB0EA4FDA02}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{6B35ED41-5641-49FB-9CBD-6B9A384439F6}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -52,20 +50,6 @@ Global
 		{12C59CE2-9CF7-44F4-B27C-90754609F979}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{12C59CE2-9CF7-44F4-B27C-90754609F979}.Release|Win32.ActiveCfg = Release|Any CPU
 		{12C59CE2-9CF7-44F4-B27C-90754609F979}.Release|x86.ActiveCfg = Release|Any CPU
-		{1D786646-FAD3-4484-9050-6FB0EA4FDA02}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{1D786646-FAD3-4484-9050-6FB0EA4FDA02}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{1D786646-FAD3-4484-9050-6FB0EA4FDA02}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{1D786646-FAD3-4484-9050-6FB0EA4FDA02}.Debug|Win32.ActiveCfg = Debug|Win32
-		{1D786646-FAD3-4484-9050-6FB0EA4FDA02}.Debug|Win32.Build.0 = Debug|Win32
-		{1D786646-FAD3-4484-9050-6FB0EA4FDA02}.Debug|x86.ActiveCfg = Debug|Win32
-		{1D786646-FAD3-4484-9050-6FB0EA4FDA02}.Debug|x86.Build.0 = Debug|Win32
-		{1D786646-FAD3-4484-9050-6FB0EA4FDA02}.Release|Any CPU.ActiveCfg = Release|Win32
-		{1D786646-FAD3-4484-9050-6FB0EA4FDA02}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{1D786646-FAD3-4484-9050-6FB0EA4FDA02}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{1D786646-FAD3-4484-9050-6FB0EA4FDA02}.Release|Win32.ActiveCfg = Release|Win32
-		{1D786646-FAD3-4484-9050-6FB0EA4FDA02}.Release|Win32.Build.0 = Release|Win32
-		{1D786646-FAD3-4484-9050-6FB0EA4FDA02}.Release|x86.ActiveCfg = Release|Win32
-		{1D786646-FAD3-4484-9050-6FB0EA4FDA02}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
