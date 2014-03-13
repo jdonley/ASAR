@@ -159,6 +159,9 @@ namespace ASAR
                 AudacityButton_SkipToStart = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Skip to Start"))[0];
                 AudacityButton_SkipToEnd = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Skip to End"))[0];
 
+                this.TopMost = true;
+                this.TopMost = false;
+                this.Activate();
             }
             catch (Exception ex)
             {
@@ -175,6 +178,9 @@ namespace ASAR
                     Point cursorPos = System.Windows.Forms.Cursor.Position;
                     Button_.Click();
                     System.Windows.Forms.Cursor.Position = cursorPos;
+                    this.TopMost = true;
+                    this.TopMost = false;
+                    this.Activate();
                 }
             }
             catch (Exception ex)
