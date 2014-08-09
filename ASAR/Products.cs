@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ASAR
 {
-    public class Progress
+    public class Products
     {
         //public string   Status        { get; set; }
         //public string   RecordingType { get; set; }

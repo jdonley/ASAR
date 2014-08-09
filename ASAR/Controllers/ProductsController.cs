@@ -6,21 +6,21 @@
     using System.Net;
     using System.Web.Http;
 
-    public class ProgressController : ApiController
+    public class ProductsController : ApiController
     {
-        Progress[] products = new Progress[]  
+        Products[] products = new Products[]  
         {  
-            new Progress { Id = 1, Name = "Tomato Soup", Category = "Groceries", Price = 1 },  
-            new Progress { Id = 2, Name = "Yo-yo", Category = "Toys", Price = 3.75M },  
-            new Progress { Id = 3, Name = "Hammer", Category = "Hardware", Price = 16.99M }  
+            new Products { Id = 1, Name = "Tomato Soup", Category = "Groceries", Price = 1 },  
+            new Products { Id = 2, Name = "Yo-yo", Category = "Toys", Price = 3.75M },  
+            new Products { Id = 3, Name = "Hammer", Category = "Hardware", Price = 16.99M }  
         };
 
-        public IEnumerable<Progress> GetAllProducts()
+        public IEnumerable<Products> GetAllProducts()
         {
             return products;
         }
 
-        public Progress GetProductById(int id)
+        public Products GetProductById(int id)
         {
             var product = products.FirstOrDefault((p) => p.Id == id);
             if (product == null)
@@ -30,7 +30,7 @@
             return product;
         }
 
-        public IEnumerable<Progress> GetProductsByCategory(string category)
+        public IEnumerable<Products> GetProductsByCategory(string category)
         {
             return products.Where(p => string.Equals(p.Category, category,
                     StringComparison.OrdinalIgnoreCase));

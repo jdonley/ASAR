@@ -9,6 +9,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+//Web
+using System.Web;
+using System.Web.Http;
+using System.Web.Routing;
+using System.Net.Http;
+
 using System.Windows.Forms.DataVisualization.Charting;
 using System.IO.Ports;
 
@@ -46,12 +52,20 @@ namespace ASAR
         TestStack.White.UIItems.Button AudacityButton_SkipToStart;
         TestStack.White.UIItems.Button AudacityButton_SkipToEnd;
 
+        //Miscellaneous
+        bool ExitFlag = false;
+        String rotation = "1"; //Stepper motor step size
+        String serialLog;
+        String currentPosition;
+        double AngleOfRotation;
+        String Btn360RecString;
+
         public formMain()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
             // Code to run when the Form loads
             // Initialise the location graph
@@ -59,7 +73,7 @@ namespace ASAR
             seriesLocation.Points.Clear();
             seriesLocation.Points.AddXY(0, 10);
             seriesLocation.Points.AddXY(0, 0);
-
+            
             // Initialise the frequency graph
             seriesFrequency = chartFrequency.Series[0];
             seriesFrequency.Points.Clear();
@@ -81,26 +95,30 @@ namespace ASAR
 
             //Find available COM ports and list them
             findPorts();
+
+            //Miscellaneous
+            currentPosition = lblCurrentPosition.Text;
         }
 
         private void btnRotateCCW_Click(object sender, EventArgs e)
         {
             //Rotate Left
-            String rotation = comboBox3.Text;
             String textmessage = "l";
-            double step = -7.5;
+            double step = -Convert.ToDouble(rotation);
 
             if (serialPort1.IsOpen)
             {
                 // Update Rotation Degrees and Send command
                 serialPort1.WriteLine(rotation);
+                serialLog += Environment.NewLine + rotation;
                 serialPort1.WriteLine(textmessage);
-                lblCurrentPosition.Text = (Convert.ToDouble(lblCurrentPosition.Text.Replace("°", "")) + step).ToString() + "°";
-                seriesLocation.Points[0].XValue += step;
+                serialLog += Environment.NewLine + textmessage;
+                currentPosition = (Convert.ToDouble(currentPosition.Replace("°", "")) + step).ToString() + "°";
+                AngleOfRotation += step;
             }
             else
             {
-                textBox1.Text = "Port Is Not Open";
+                serialLog = "Port Is Not Open";
             }
 
         }
@@ -108,21 +126,22 @@ namespace ASAR
         private void btnRotateCW_Click(object sender, EventArgs e)
         {
             //Rotate Right
-            String rotation = comboBox3.Text;
             String textmessage = "r";
-            double step = 7.5;
+            double step = Convert.ToDouble(rotation);
 
             if (serialPort1.IsOpen)
             {
                 // Update Rotation Degrees and Send command
                 serialPort1.WriteLine(rotation);
+                serialLog += Environment.NewLine + rotation;
                 serialPort1.WriteLine(textmessage);
-                lblCurrentPosition.Text = (Convert.ToDouble(lblCurrentPosition.Text.Replace("°", "")) + step).ToString() + "°";
-                seriesLocation.Points[0].XValue += step;
+                serialLog += Environment.NewLine + textmessage;
+                currentPosition = (Convert.ToDouble(currentPosition.Replace("°", "")) + step).ToString() + "°";
+                AngleOfRotation += step;
             }
             else
             {
-                textBox1.Text = "Port Is Not Open";
+                serialLog = "Port Is Not Open";
             }
         }
 
@@ -159,9 +178,6 @@ namespace ASAR
                 AudacityButton_SkipToStart = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Skip to Start"))[0];
                 AudacityButton_SkipToEnd = (TestStack.White.UIItems.Button)audacityTransportToolbar.GetMultiple(TestStack.White.UIItems.Finders.SearchCriteria.ByText("Skip to End"))[0];
 
-                this.TopMost = true;
-                this.TopMost = false;
-                this.Activate();
             }
             catch (Exception ex)
             {
@@ -178,9 +194,6 @@ namespace ASAR
                     Point cursorPos = System.Windows.Forms.Cursor.Position;
                     Button_.Click();
                     System.Windows.Forms.Cursor.Position = cursorPos;
-                    this.TopMost = true;
-                    this.TopMost = false;
-                    this.Activate();
                 }
             }
             catch (Exception ex)
@@ -254,13 +267,13 @@ namespace ASAR
             //Initialise Button
             //int _Baud = 9600;
 
-            textBox1.Text = String.Empty;
+            serialLog = String.Empty;
             //this->serialPort1->BaudRate = Int32::Parse(System::String ^_Baud);
             //if (this->comboBox1->Text == String::Empty || this->comboBox2->Text == String::Empty) {
             if (comboBox1.Text == String.Empty)
             {
                 // Check port setting are selected
-                textBox1.Text = "Select Port Settings";
+                serialLog = "Select Port Settings";
             }
             else
             {
@@ -272,23 +285,23 @@ namespace ASAR
                         //this->serialPort1->BaudRate = Int32::Parse(this->comboBox2->Text);
                         serialPort1.ReadTimeout = 500;
                         serialPort1.WriteTimeout = 500;
-                        textBox1.Text = "Enter Message Here";
+                        serialLog = "Enter Message Here";
                         // Open Serial Port
                         serialPort1.Open();
                         progressBar1.Value = 100;
-                        textBox1.Text = "Serial Port Initialised";
+                        serialLog = "Serial Port Initialised";
                         button5.Enabled = false;
                         comboBox2.Enabled = false;
                         comboBox1.Enabled = false;
                     }
                     else
                     {
-                        textBox1.Text = "Port is not opened";
+                        serialLog = "Port is not opened";
                     }
                 }
                 catch (UnauthorizedAccessException)
                 {
-                    textBox1.Text = "Unauthorised Access";
+                    serialLog = "Unauthorised Access";
                 }
 
             }
@@ -308,32 +321,84 @@ namespace ASAR
 
         private void btnReturnBoomHome_Click(object sender, EventArgs e)
         {
+            //Rotate Right
+            String textmessage = "z";
 
+            if (serialPort1.IsOpen)
+            {
+                // Send command
+                serialPort1.WriteLine(textmessage);
+                serialLog += Environment.NewLine + textmessage;
+                currentPosition = (0).ToString() + "°";
+                AngleOfRotation = 0;
+            }
+            else
+            {
+                serialLog = "Port Is Not Open";
+            }
         }
 
         private void btnStart360Rec_Click(object sender, EventArgs e)
         {
+            if (btnStart360Rec.Text == "STOP")
+            {
+                ExitFlag = true; 
+                btnStart360Rec.Text = Btn360RecString;
+                serialLogUpdateTimer.Enabled = false; 
+                serialLogText.Text = serialLog;
+                lblCurrentPosition.Text = currentPosition;
+                seriesLocation.Points[0].XValue = AngleOfRotation;
+                this.TopMost = true;
+                this.TopMost = false;
+                this.Activate();
+            }
+            else
+            {
+                ExitFlag = false;
+                Btn360RecString = btnStart360Rec.Text;
+                btnStart360Rec.Text = "STOP";
+                currentPosition = lblCurrentPosition.Text;
+                serialLogUpdateTimer.Enabled = true;
+                System.Threading.Thread thread1 = new System.Threading.Thread(new System.Threading.ThreadStart(Record_360));
+                thread1.Start();
+            }
+        }
+        private void Record_360()
+        {
             //
             //Start 360 degree recording sequence here
             //
+            object sender = new object();
+            EventArgs e = new EventArgs();
 
+            //Initialise
+            if (!serialPort1.IsOpen)
+            {
+                MessageBox.Show("Please connect to COM port first.");
+                return;
+            }
+            btnAudacity_Click(sender, e);
             //Something like
-            int recDuration = 10000; //10000ms = 10s  //TODO: Should obtain this value from the duration of the audio file used !
-            for (double angle = 0; angle < 360; angle += 7.5)
+            int recDuration = 1000; //10000ms = 10s  //TODO: Should obtain this value from the duration of the audio file used !
+            for (double angle = 0; angle < 360; angle += Convert.ToDouble(rotation))
             {
                 btnAudacityRecord_Click(sender, e); // start recording
                 System.Threading.Thread.Sleep(recDuration + 100/*plus buffer*/); //Sleep program for duration of recording
                 btnAudacityStop_Click(sender, e); // stop recording
+                if (ExitFlag)
+                    break;
                 btnRotateCW_Click(sender, e); // Rotate to next position
+                System.Threading.Thread.Sleep(1000); //One second wait for rotation to complete                
             }
-            //Last angle's recording
-            btnAudacityRecord_Click(sender, e); // start recording
-            System.Threading.Thread.Sleep(recDuration + 100/*plus buffer*/);//Sleep program for duration of recording
-            btnAudacityStop_Click(sender, e); // stop recording
-
+            if (!ExitFlag)
+            {//Last angle's recording
+                btnAudacityRecord_Click(sender, e); // start recording
+                System.Threading.Thread.Sleep(recDuration + 100/*plus buffer*/);//Sleep program for duration of recording
+                btnAudacityStop_Click(sender, e); // stop recording
+            }
             btnReturnBoomHome_Click(sender, e); // Return the boom to it's home location
+            ExitFlag = true;
         }
-
         private void button7_Click(object sender, EventArgs e)
         {
             // Send Button
@@ -342,10 +407,11 @@ namespace ASAR
             if (serialPort1.IsOpen)
             {
                 serialPort1.WriteLine(textmessage);
+                serialLog += Environment.NewLine + textmessage;
             }
             else
             {
-                textBox1.Text = "Port Is Not Open";
+                serialLog = "Port Is Not Open";
             }
         }
 
@@ -353,22 +419,61 @@ namespace ASAR
         {
             if (serialPort1.IsOpen)
             {
-                textBox1.Text = String.Empty;
+                //serialLog = String.Empty;
                 try
                 {
-                    textBox1.Text = serialPort1.ReadLine();
+                    serialLog += Environment.NewLine + serialPort1.ReadLine();
                 }
                 catch (TimeoutException)
                 {
-                    textBox1.Text = "Timeout Exception";
+                    serialLog = "Timeout Exception";
                 }
                 button5.Enabled = false;
             }
             else
             {
-                textBox1.Text = "Port Is Not Open";
+                serialLog = "Port Is Not Open";
             }
             // Recieve Button
-        }        
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            rotation = comboBox3.Text;
+        }
+
+        private void serialLogUpdateTimer_Tick(object sender, EventArgs e)
+        {
+            serialLogText.Text = "";
+            serialLogText.AppendText(serialLog);
+            lblCurrentPosition.Text = currentPosition;
+            seriesLocation.Points[0].XValue = AngleOfRotation;
+
+            this.TopMost = true;
+            this.TopMost = false;
+            this.Activate();
+            if(ExitFlag)
+            {
+                serialLogUpdateTimer.Enabled = false;
+                btnStart360Rec.Text = Btn360RecString;                
+            }
+        }
+
+        private void btnReturnBoomHome_MouseClick(object sender, MouseEventArgs e)
+        {
+            serialLogUpdateTimer_Tick(sender, e);
+        }
+
+        private void btnRotateCW_MouseClick(object sender, MouseEventArgs e)
+        {
+            serialLogUpdateTimer_Tick(sender, e);
+        }
+
+        private void btnRotateCCW_MouseClick(object sender, MouseEventArgs e)
+        {
+            serialLogUpdateTimer_Tick(sender, e);
+        }
+
+  
     }
 }
