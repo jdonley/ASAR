@@ -19,20 +19,14 @@ using TestStack.White.UIItems;
 
 namespace ASAR
 {
-    /* Attn. Matthew Dabin
-* Feel free to start writing code here which will connect
-* to the COM port of choice and you can display the output
-* in a TextBox object on Form1.
-* Once you get connected and start transceiving clean signals
-* you can create functions for the buttons to send the appropriate commands.
-* After this is done you can look at writing a class for the code OR just start a class/object right away :)
-*/
 
     public partial class formMain : Form
     {
+        // Platform Control
+        double currentStepSize = 2;
+
         //Charts
         Series seriesLocation;
-        Series seriesFrequency;
 
         //UI Automation Applications
         TestStack.White.Application appAudacity;
@@ -61,11 +55,11 @@ namespace ASAR
             seriesLocation.Points.AddXY(0, 0);
 
             // Initialise the frequency graph
-            seriesFrequency = chartFrequency.Series[0];
-            seriesFrequency.Points.Clear();
-            int frequencyResolution = 50;
-            for (int i = 0; i < frequencyResolution; i++)
-                seriesFrequency.Points.AddY(Math.Sin(((double)i / frequencyResolution) / Math.PI * 10)); //This is just a sample to see what the chart looks like
+            //seriesFrequency = chartFrequency.Series[0];
+            //seriesFrequency.Points.Clear();
+            //int frequencyResolution = 50;
+            //for (int i = 0; i < frequencyResolution; i++)
+            //    seriesFrequency.Points.AddY(Math.Sin(((double)i / frequencyResolution) / Math.PI * 10)); //This is just a sample to see what the chart looks like
 
             //Initial serial port settings
             serialPort1.PortName = "COM1";
@@ -81,22 +75,22 @@ namespace ASAR
 
             //Find available COM ports and list them
             findPorts();
+            comboBox1.SelectedIndex = 0;
+            comboBox2.SelectedIndex = 0;
+            comboBox3.SelectedIndex = 0;
         }
 
         private void btnRotateCCW_Click(object sender, EventArgs e)
         {
             //Rotate Left
-            String rotation = comboBox3.Text;
             String textmessage = "l";
-            double step = -7.5;
 
             if (serialPort1.IsOpen)
             {
                 // Update Rotation Degrees and Send command
-                serialPort1.WriteLine(rotation);
                 serialPort1.WriteLine(textmessage);
-                lblCurrentPosition.Text = (Convert.ToDouble(lblCurrentPosition.Text.Replace("°", "")) + step).ToString() + "°";
-                seriesLocation.Points[0].XValue += step;
+                lblCurrentPosition.Text = (Convert.ToDouble(lblCurrentPosition.Text.Replace("°", "")) - currentStepSize).ToString() + "°";
+                seriesLocation.Points[0].XValue -= currentStepSize;
             }
             else
             {
@@ -108,17 +102,14 @@ namespace ASAR
         private void btnRotateCW_Click(object sender, EventArgs e)
         {
             //Rotate Right
-            String rotation = comboBox3.Text;
             String textmessage = "r";
-            double step = 7.5;
 
             if (serialPort1.IsOpen)
             {
                 // Update Rotation Degrees and Send command
-                serialPort1.WriteLine(rotation);
                 serialPort1.WriteLine(textmessage);
-                lblCurrentPosition.Text = (Convert.ToDouble(lblCurrentPosition.Text.Replace("°", "")) + step).ToString() + "°";
-                seriesLocation.Points[0].XValue += step;
+                lblCurrentPosition.Text = (Convert.ToDouble(lblCurrentPosition.Text.Replace("°", "")) + currentStepSize).ToString() + "°";
+                seriesLocation.Points[0].XValue += currentStepSize;
             }
             else
             {
@@ -304,11 +295,26 @@ namespace ASAR
             // this->button8_Click->Enabled = true;
             // Enable Init Button
             button5.Enabled = true;
+            comboBox2.Enabled = true;
+            comboBox1.Enabled = true;
         }
 
         private void btnReturnBoomHome_Click(object sender, EventArgs e)
         {
+            //Return to zero
+            String textmessage = "z";
 
+            if (serialPort1.IsOpen)
+            {
+                // Update Rotation Degrees and Send command
+                serialPort1.WriteLine(textmessage);
+                lblCurrentPosition.Text = "0°";
+                seriesLocation.Points[0].XValue = 0;
+            }
+            else
+            {
+                textBox1.Text = "Port Is Not Open";
+            }
         }
 
         private void btnStart360Rec_Click(object sender, EventArgs e)
@@ -369,6 +375,47 @@ namespace ASAR
                 textBox1.Text = "Port Is Not Open";
             }
             // Recieve Button
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void formMain_FormClosing_1(object sender, FormClosingEventArgs e)
+        {
+            button6_Click(sender, e);
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Rotate Left
+            String stepSizeChange = Convert.ToString(comboBox3.SelectedIndex + 2);
+
+            if (serialPort1.IsOpen)  // Update Rotation Degrees and Send command
+            {
+                serialPort1.WriteLine(stepSizeChange);
+
+                if ((comboBox3.SelectedIndex + 2) == 2)
+                    currentStepSize = 2;
+                else if ((comboBox3.SelectedIndex + 2) == 3)
+                    currentStepSize = 4;
+                else if ((comboBox3.SelectedIndex + 2) == 4)
+                    currentStepSize = 6;
+                else if ((comboBox3.SelectedIndex + 2) == 5)
+                    currentStepSize = 10;
+                else if ((comboBox3.SelectedIndex + 2) == 6)
+                    currentStepSize = 20;
+                else if ((comboBox3.SelectedIndex + 2) == 7)
+                    currentStepSize = 30;
+                else if ((comboBox3.SelectedIndex + 2) == 8)
+                    currentStepSize = 60;
+                else if ((comboBox3.SelectedIndex + 2) == 9)
+                    currentStepSize = 120;
+            }
+            else
+                textBox1.Text = "Port Is Not Open";
+
         }        
     }
 }
