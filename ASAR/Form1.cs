@@ -10,18 +10,26 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using System.Windows.Forms.DataVisualization.Charting;
-using System.IO.Ports;
 
 //UI Automation with White
 using TestStack.White;
 using TestStack.White.WindowsAPI;
 using TestStack.White.UIItems;
 
+//Serial Includes
+using System.IO.Ports;
+using System.IO;
+using System.Management;
+
+
 namespace ASAR
 {
 
     public partial class formMain : Form
     {
+        // Port selection/connection dialog
+        formConnect connection_dialog = new formConnect();
+
         // Platform Control
         double currentStepSize = 2;
 
@@ -54,13 +62,6 @@ namespace ASAR
             seriesLocation.Points.AddXY(0, 10);
             seriesLocation.Points.AddXY(0, 0);
 
-            // Initialise the frequency graph
-            //seriesFrequency = chartFrequency.Series[0];
-            //seriesFrequency.Points.Clear();
-            //int frequencyResolution = 50;
-            //for (int i = 0; i < frequencyResolution; i++)
-            //    seriesFrequency.Points.AddY(Math.Sin(((double)i / frequencyResolution) / Math.PI * 10)); //This is just a sample to see what the chart looks like
-
             //Initial serial port settings
             serialPort1.PortName = "COM1";
             serialPort1.BaudRate = 9600;
@@ -73,11 +74,17 @@ namespace ASAR
             serialPort1.WriteBufferSize = 2048;
             serialPort1.WriteTimeout = 500;
 
-            //Find available COM ports and list them
-            findPorts();
-            comboBox1.SelectedIndex = 0;
-            comboBox2.SelectedIndex = 0;
+            // Show port selection dialog
+            do
+                if (connection_dialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
+                {
+                    this.Close();
+                    return;
+                }
+            while (Connect_Serial() < 0);
+
             comboBox3.SelectedIndex = 0;
+
         }
 
         private void btnRotateCCW_Click(object sender, EventArgs e)
@@ -115,16 +122,6 @@ namespace ASAR
             {
                 textBox1.Text = "Port Is Not Open";
             }
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnAudacity_Click(object sender, EventArgs e)
@@ -222,81 +219,36 @@ namespace ASAR
             { }
         }
 
-        private void button10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void findPorts()
-        {
-            // Get availble port names
-            string[] objectArray = SerialPort.GetPortNames();
-            // Add string to combobox
-            comboBox1.Items.AddRange(objectArray);
-        }
-
-        private void button5_Click(object sender, EventArgs e)
+        private int Connect_Serial()
         {
             //Initialise Button
-            //int _Baud = 9600;
-
             textBox1.Text = String.Empty;
-            //this->serialPort1->BaudRate = Int32::Parse(System::String ^_Baud);
-            //if (this->comboBox1->Text == String::Empty || this->comboBox2->Text == String::Empty) {
-            if (comboBox1.Text == String.Empty)
-            {
-                // Check port setting are selected
-                textBox1.Text = "Select Port Settings";
-            }
-            else
-            {
                 try
                 {
                     if (!serialPort1.IsOpen)
                     {
-                        serialPort1.PortName = comboBox1.Text;
+                        serialPort1.PortName = connection_dialog.Port_Name;
                         //this->serialPort1->BaudRate = Int32::Parse(this->comboBox2->Text);
                         serialPort1.ReadTimeout = 500;
                         serialPort1.WriteTimeout = 500;
-                        textBox1.Text = "Enter Message Here";
                         // Open Serial Port
                         serialPort1.Open();
-                        progressBar1.Value = 100;
                         textBox1.Text = "Serial Port Initialised";
-                        button5.Enabled = false;
-                        comboBox2.Enabled = false;
-                        comboBox1.Enabled = false;
+                        UpdateStepSize();
+                        return 1;
                     }
                     else
                     {
                         textBox1.Text = "Port is not opened";
+                        return -1;
                     }
                 }
                 catch (UnauthorizedAccessException)
                 {
                     textBox1.Text = "Unauthorised Access";
+                    return -2;
                 }
 
-            }
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            // Close Port
-            serialPort1.Close();
-            // Update Status Bar
-            progressBar1.Value = 0;
-            // Enable Read Button
-            // this->button8_Click->Enabled = true;
-            // Enable Init Button
-            button5.Enabled = true;
-            comboBox2.Enabled = true;
-            comboBox1.Enabled = true;
         }
 
         private void btnReturnBoomHome_Click(object sender, EventArgs e)
@@ -340,56 +292,19 @@ namespace ASAR
             btnReturnBoomHome_Click(sender, e); // Return the boom to it's home location
         }
 
-        private void button7_Click(object sender, EventArgs e)
-        {
-            // Send Button
-            String name = serialPort1.PortName;
-            String textmessage = textBox2.Text;
-            if (serialPort1.IsOpen)
-            {
-                serialPort1.WriteLine(textmessage);
-            }
-            else
-            {
-                textBox1.Text = "Port Is Not Open";
-            }
-        }
-
-        private void Recieve_Click(object sender, EventArgs e)
-        {
-            if (serialPort1.IsOpen)
-            {
-                textBox1.Text = String.Empty;
-                try
-                {
-                    textBox1.Text = serialPort1.ReadLine();
-                }
-                catch (TimeoutException)
-                {
-                    textBox1.Text = "Timeout Exception";
-                }
-                button5.Enabled = false;
-            }
-            else
-            {
-                textBox1.Text = "Port Is Not Open";
-            }
-            // Recieve Button
-        }
-
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void formMain_FormClosing_1(object sender, FormClosingEventArgs e)
-        {
-            button6_Click(sender, e);
+        {            
+            // Close Port
+            serialPort1.Close();
         }
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Rotate Left
+            UpdateStepSize();
+
+        }
+        private void UpdateStepSize()
+        {
             String stepSizeChange = Convert.ToString(comboBox3.SelectedIndex + 2);
 
             if (serialPort1.IsOpen)  // Update Rotation Degrees and Send command
@@ -415,7 +330,25 @@ namespace ASAR
             }
             else
                 textBox1.Text = "Port Is Not Open";
+        }
 
+        private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            if (serialPort1.IsOpen)
+            {
+                try
+                {
+                    textBox1.Text = textBox1.Text + serialPort1.ReadLine();
+                }
+                catch (TimeoutException)
+                {
+                    textBox1.Text = textBox1.Text + "Timeout Exception";
+                }
+            }
+            else
+            {
+                textBox1.Text = "Port Is Not Open";
+            }
         }        
     }
 }
