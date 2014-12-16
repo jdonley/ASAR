@@ -179,7 +179,7 @@
             "30°",
             "60°",
             "120°"});
-            this.comboBox3.Location = new System.Drawing.Point(421, 106);
+            this.comboBox3.Location = new System.Drawing.Point(421, 116);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(204, 33);
             this.comboBox3.TabIndex = 44;
@@ -310,7 +310,7 @@
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(292, 103);
+            this.label6.Location = new System.Drawing.Point(292, 113);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(123, 17);
             this.label6.TabIndex = 45;
@@ -338,10 +338,10 @@
             this.tableLayoutPanel2.SetColumnSpan(this.tabDisplayChoice, 3);
             this.tabDisplayChoice.Controls.Add(this.tabLocation);
             this.tabDisplayChoice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabDisplayChoice.Location = new System.Drawing.Point(3, 126);
+            this.tabDisplayChoice.Location = new System.Drawing.Point(3, 136);
             this.tabDisplayChoice.Name = "tabDisplayChoice";
             this.tabDisplayChoice.SelectedIndex = 0;
-            this.tabDisplayChoice.Size = new System.Drawing.Size(622, 381);
+            this.tabDisplayChoice.Size = new System.Drawing.Size(622, 371);
             this.tabDisplayChoice.TabIndex = 18;
             // 
             // tabLocation
@@ -350,7 +350,7 @@
             this.tabLocation.Location = new System.Drawing.Point(4, 29);
             this.tabLocation.Name = "tabLocation";
             this.tabLocation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLocation.Size = new System.Drawing.Size(614, 348);
+            this.tabLocation.Size = new System.Drawing.Size(614, 338);
             this.tabLocation.TabIndex = 0;
             this.tabLocation.Text = "Location";
             this.tabLocation.UseVisualStyleBackColor = true;

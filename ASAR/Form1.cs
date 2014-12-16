@@ -228,7 +228,6 @@ namespace ASAR
                     if (!serialPort1.IsOpen)
                     {
                         serialPort1.PortName = connection_dialog.Port_Name;
-                        //this->serialPort1->BaudRate = Int32::Parse(this->comboBox2->Text);
                         serialPort1.ReadTimeout = 500;
                         serialPort1.WriteTimeout = 500;
                         // Open Serial Port
