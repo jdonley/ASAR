@@ -147,7 +147,6 @@
             // 
             this.serialPort1.ReadTimeout = 500;
             this.serialPort1.WriteTimeout = 500;
-            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
             // btnReturnBoomHome
             // 

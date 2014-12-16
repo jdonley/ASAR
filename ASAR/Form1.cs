@@ -48,6 +48,10 @@ namespace ASAR
         TestStack.White.UIItems.Button AudacityButton_SkipToStart;
         TestStack.White.UIItems.Button AudacityButton_SkipToEnd;
 
+        // Threading
+        public delegate void AddDataDelegate(String myString);
+        public AddDataDelegate myDelegate;
+
         public formMain()
         {
             InitializeComponent();
@@ -74,17 +78,54 @@ namespace ASAR
             serialPort1.WriteBufferSize = 2048;
             serialPort1.WriteTimeout = 500;
 
+
             // Show port selection dialog
             do
+            {
                 if (connection_dialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
                 {
                     this.Close();
                     return;
                 }
-            while (Connect_Serial() < 0);
+                serialPort1.PortName = connection_dialog.Port_Name.ToString();
+            } while (Connect_Serial() < 0);
 
+            this.myDelegate = new AddDataDelegate(serial_Logger);
+            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             comboBox3.SelectedIndex = 0;
 
+        }
+
+        private int Connect_Serial()
+        {
+            //Initialise Button
+            textBox1.Text = String.Empty;
+            try
+            {
+                if (!serialPort1.IsOpen)
+                {
+                    // Open Serial Port
+                    serialPort1.Open();
+                    textBox1.Text = "Serial Port Initialised\n";
+                    UpdateStepSize();
+                    return 1;
+                }
+                else
+                {
+                    MessageBox.Show("Port is not opened");
+                    return -1;
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("Unauthorised Access");
+                return -2;
+            }
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.HResult.ToString());
+            //    return -3;
+            //}
         }
 
         private void btnRotateCCW_Click(object sender, EventArgs e)
@@ -219,37 +260,6 @@ namespace ASAR
             { }
         }
 
-        private int Connect_Serial()
-        {
-            //Initialise Button
-            textBox1.Text = String.Empty;
-                try
-                {
-                    if (!serialPort1.IsOpen)
-                    {
-                        serialPort1.PortName = connection_dialog.Port_Name;
-                        serialPort1.ReadTimeout = 500;
-                        serialPort1.WriteTimeout = 500;
-                        // Open Serial Port
-                        serialPort1.Open();
-                        textBox1.Text = "Serial Port Initialised";
-                        UpdateStepSize();
-                        return 1;
-                    }
-                    else
-                    {
-                        textBox1.Text = "Port is not opened";
-                        return -1;
-                    }
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    textBox1.Text = "Unauthorised Access";
-                    return -2;
-                }
-
-        }
-
         private void btnReturnBoomHome_Click(object sender, EventArgs e)
         {
             //Return to zero
@@ -337,17 +347,21 @@ namespace ASAR
             {
                 try
                 {
-                    textBox1.Text = textBox1.Text + serialPort1.ReadLine();
+                    textBox1.Invoke(this.myDelegate, new Object[] {serialPort1.ReadExisting()});
                 }
                 catch (TimeoutException)
                 {
-                    textBox1.Text = textBox1.Text + "Timeout Exception";
+                    textBox1.Invoke(this.myDelegate, new Object[] { "Timeout Exception" }); 
                 }
             }
             else
             {
-                textBox1.Text = "Port Is Not Open";
+                textBox1.Invoke(this.myDelegate, new Object[] { "Port Is Not Open" });                
             }
-        }        
+        }
+        public void serial_Logger(String myString)
+        {
+            textBox1.AppendText(myString);
+        }
     }
 }

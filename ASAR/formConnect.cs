@@ -31,6 +31,7 @@ namespace ASAR
 
         private void findPorts()
         {
+            comboBox_Ports.Items.Clear();
             // Get availble port names
             using (var searcher = new ManagementObjectSearcher("SELECT * FROM WIN32_SerialPort"))
             {
