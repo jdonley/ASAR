@@ -32,6 +32,11 @@ namespace ASAR
 
         // Platform Control
         double currentStepSize = 2;
+        int currentStepDirection = 0;
+        double startPosition = 0;
+        double counterAnimation = 0; 
+        double smallestIncrement = 2.0 / 25.0 * 5;
+
 
         //Charts
         Series seriesLocation;
@@ -65,6 +70,7 @@ namespace ASAR
             seriesLocation.Points.Clear();
             seriesLocation.Points.AddXY(0, 10);
             seriesLocation.Points.AddXY(0, 0);
+            seriesLocation.Points[0].Label = seriesLocation.Points[0].XValue.ToString() + "°";
 
             //Initial serial port settings
             serialPort1.PortName = "COM1";
@@ -80,14 +86,16 @@ namespace ASAR
 
 
             // Show port selection dialog
-            do
-            {
+             do
+             {
                 if (connection_dialog.ShowDialog() == System.Windows.Forms.DialogResult.Cancel)
                 {
                     this.Close();
                     return;
                 }
-                serialPort1.PortName = connection_dialog.Port_Name.ToString();
+                if (serialPort1.IsOpen)
+                    serialPort1.Close();
+                serialPort1.PortName = connection_dialog.Port_Name;
             } while (Connect_Serial() < 0);
 
             this.myDelegate = new AddDataDelegate(serial_Logger);
@@ -99,14 +107,14 @@ namespace ASAR
         private int Connect_Serial()
         {
             //Initialise Button
-            textBox1.Text = String.Empty;
+            txtSerialLog.Text = String.Empty;
             try
             {
                 if (!serialPort1.IsOpen)
                 {
                     // Open Serial Port
                     serialPort1.Open();
-                    textBox1.Text = "Serial Port Initialised\n";
+                    txtSerialLog.Text = "Serial Port Initialised\n";
                     UpdateStepSize();
                     return 1;
                 }
@@ -121,11 +129,11 @@ namespace ASAR
                 MessageBox.Show("Unauthorised Access");
                 return -2;
             }
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.HResult.ToString());
-            //    return -3;
-            //}
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return -3;
+            }
         }
 
         private void btnRotateCCW_Click(object sender, EventArgs e)
@@ -137,12 +145,17 @@ namespace ASAR
             {
                 // Update Rotation Degrees and Send command
                 serialPort1.WriteLine(textmessage);
-                lblCurrentPosition.Text = (Convert.ToDouble(lblCurrentPosition.Text.Replace("°", "")) - currentStepSize).ToString() + "°";
-                seriesLocation.Points[0].XValue -= currentStepSize;
+                currentStepDirection = -1;
+                startPosition = Math.Round(seriesLocation.Points[0].XValue, 2);
+
+                btnRotateCCW.Enabled = false;
+                btnRotateCW.Enabled = false;
+                btnReturnBoomHome.Enabled = false;
+                timerChartAnimation.Enabled = true;
             }
             else
             {
-                textBox1.Text = "Port Is Not Open";
+                txtSerialLog.Text = "Port Is Not Open";
             }
 
         }
@@ -156,12 +169,44 @@ namespace ASAR
             {
                 // Update Rotation Degrees and Send command
                 serialPort1.WriteLine(textmessage);
-                lblCurrentPosition.Text = (Convert.ToDouble(lblCurrentPosition.Text.Replace("°", "")) + currentStepSize).ToString() + "°";
-                seriesLocation.Points[0].XValue += currentStepSize;
+                currentStepDirection = +1;
+                startPosition = Math.Round(seriesLocation.Points[0].XValue, 2);
+
+                btnRotateCCW.Enabled = false;
+                btnRotateCW.Enabled = false;
+                btnReturnBoomHome.Enabled = false;
+                timerChartAnimation.Enabled = true;
             }
             else
             {
-                textBox1.Text = "Port Is Not Open";
+                txtSerialLog.Text = "Port Is Not Open";
+            }
+        }
+
+
+        private void btnReturnBoomHome_Click(object sender, EventArgs e)
+        {
+            //Return to zero
+            String textmessage = "z";
+
+            if (serialPort1.IsOpen)
+            {
+                // Update Rotation Degrees and Send command
+                serialPort1.WriteLine(textmessage);
+
+                startPosition = Math.Round(seriesLocation.Points[0].XValue, 2);
+                currentStepDirection = startPosition > 0 ? -1 : 1;
+                currentStepSize = startPosition;
+
+                btnRotateCCW.Enabled = false;
+                btnRotateCW.Enabled = false;
+                btnReturnBoomHome.Enabled = false;
+                timerChartAnimation.Enabled = true;
+
+            }
+            else
+            {
+                txtSerialLog.Text = "Port Is Not Open";
             }
         }
 
@@ -260,24 +305,6 @@ namespace ASAR
             { }
         }
 
-        private void btnReturnBoomHome_Click(object sender, EventArgs e)
-        {
-            //Return to zero
-            String textmessage = "z";
-
-            if (serialPort1.IsOpen)
-            {
-                // Update Rotation Degrees and Send command
-                serialPort1.WriteLine(textmessage);
-                lblCurrentPosition.Text = "0°";
-                seriesLocation.Points[0].XValue = 0;
-            }
-            else
-            {
-                textBox1.Text = "Port Is Not Open";
-            }
-        }
-
         private void btnStart360Rec_Click(object sender, EventArgs e)
         {
             //
@@ -305,6 +332,10 @@ namespace ASAR
         {            
             // Close Port
             serialPort1.Close();
+
+            // Close connection form
+            connection_dialog.Close();
+            connection_dialog.Dispose();
         }
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
@@ -312,13 +343,14 @@ namespace ASAR
             UpdateStepSize();
 
         }
-        private void UpdateStepSize()
+        private void UpdateStepSize(Boolean Skip_Serial_Write = false)
         {
             String stepSizeChange = Convert.ToString(comboBox3.SelectedIndex + 2);
 
             if (serialPort1.IsOpen)  // Update Rotation Degrees and Send command
             {
-                serialPort1.WriteLine(stepSizeChange);
+                if (!Skip_Serial_Write)
+                    serialPort1.WriteLine(stepSizeChange);
 
                 if ((comboBox3.SelectedIndex + 2) == 2)
                     currentStepSize = 2;
@@ -338,7 +370,7 @@ namespace ASAR
                     currentStepSize = 120;
             }
             else
-                textBox1.Text = "Port Is Not Open";
+                txtSerialLog.Text = "Port Is Not Open";
         }
 
         private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -347,21 +379,44 @@ namespace ASAR
             {
                 try
                 {
-                    textBox1.Invoke(this.myDelegate, new Object[] {serialPort1.ReadExisting()});
+                    txtSerialLog.Invoke(this.myDelegate, new Object[] {serialPort1.ReadExisting()});
                 }
                 catch (TimeoutException)
                 {
-                    textBox1.Invoke(this.myDelegate, new Object[] { "Timeout Exception" }); 
+                    txtSerialLog.Invoke(this.myDelegate, new Object[] { "Timeout Exception" }); 
                 }
             }
             else
             {
-                textBox1.Invoke(this.myDelegate, new Object[] { "Port Is Not Open" });                
+                txtSerialLog.Invoke(this.myDelegate, new Object[] { "Port Is Not Open" });                
             }
         }
         public void serial_Logger(String myString)
         {
-            textBox1.AppendText(myString);
+            txtSerialLog.AppendText(myString);
+        }
+
+        private void timerChartAnimation_Tick(object sender, EventArgs e)
+        {
+            seriesLocation.Points[0].XValue = Math.Round(seriesLocation.Points[0].XValue + (double)currentStepDirection * smallestIncrement, 4);
+            seriesLocation.Points[0].Label = Math.Round(seriesLocation.Points[0].XValue, 0).ToString() + "°";
+            lblCurrentPosition.Text = seriesLocation.Points[0].Label;
+
+            counterAnimation = counterAnimation + smallestIncrement;
+
+            if (counterAnimation >= Math.Abs(currentStepSize))
+            {
+                timerChartAnimation.Enabled = false;
+                counterAnimation = 0;
+                UpdateStepSize(true);
+                btnRotateCCW.Enabled = true;
+                btnRotateCW.Enabled = true;
+                btnReturnBoomHome.Enabled = true;
+            }
+
+
+
+
         }
     }
 }

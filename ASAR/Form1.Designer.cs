@@ -43,7 +43,7 @@
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.btnReturnBoomHome = new System.Windows.Forms.Button();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtSerialLog = new System.Windows.Forms.TextBox();
             this.btnStart360Rec = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -57,6 +57,7 @@
             this.chartLocation = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAudacity = new System.Windows.Forms.Button();
+            this.timerChartAnimation = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tabDisplayChoice.SuspendLayout();
@@ -184,20 +185,22 @@
             this.comboBox3.TabIndex = 44;
             this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
-            // textBox1
+            // txtSerialLog
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.txtSerialLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel6.SetColumnSpan(this.textBox1, 2);
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(3, 182);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(251, 325);
-            this.textBox1.TabIndex = 32;
-            this.textBox1.Text = "Receive here";
+            this.tableLayoutPanel6.SetColumnSpan(this.txtSerialLog, 2);
+            this.txtSerialLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSerialLog.Location = new System.Drawing.Point(3, 182);
+            this.txtSerialLog.Multiline = true;
+            this.txtSerialLog.Name = "txtSerialLog";
+            this.txtSerialLog.ReadOnly = true;
+            this.txtSerialLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtSerialLog.Size = new System.Drawing.Size(251, 542);
+            this.txtSerialLog.TabIndex = 32;
+            this.txtSerialLog.Text = "Receive here";
+            this.txtSerialLog.WordWrap = false;
             // 
             // btnStart360Rec
             // 
@@ -231,7 +234,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(897, 516);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(897, 733);
             this.tableLayoutPanel1.TabIndex = 47;
             // 
             // tableLayoutPanel2
@@ -259,7 +262,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(628, 510);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(628, 727);
             this.tableLayoutPanel2.TabIndex = 48;
             // 
             // lblCurrentPosition
@@ -340,7 +343,7 @@
             this.tabDisplayChoice.Location = new System.Drawing.Point(3, 136);
             this.tabDisplayChoice.Name = "tabDisplayChoice";
             this.tabDisplayChoice.SelectedIndex = 0;
-            this.tabDisplayChoice.Size = new System.Drawing.Size(622, 371);
+            this.tabDisplayChoice.Size = new System.Drawing.Size(622, 588);
             this.tabDisplayChoice.TabIndex = 18;
             // 
             // tabLocation
@@ -349,7 +352,7 @@
             this.tabLocation.Location = new System.Drawing.Point(4, 29);
             this.tabLocation.Name = "tabLocation";
             this.tabLocation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLocation.Size = new System.Drawing.Size(614, 338);
+            this.tabLocation.Size = new System.Drawing.Size(614, 555);
             this.tabLocation.TabIndex = 0;
             this.tabLocation.Text = "Location";
             this.tabLocation.UseVisualStyleBackColor = true;
@@ -360,6 +363,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chartLocation.BackColor = System.Drawing.Color.Transparent;
+            chartArea1.AxisX.Interval = 90D;
             chartArea1.Name = "ChartArea1";
             this.chartLocation.ChartAreas.Add(chartArea1);
             legend1.Enabled = false;
@@ -370,16 +374,29 @@
             series1.BorderWidth = 5;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Polar;
+            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            series1.CustomProperties = "LabelStyle=Top";
+            series1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             series1.Legend = "Legend1";
-            series1.MarkerBorderColor = System.Drawing.Color.Blue;
+            series1.MarkerBorderColor = System.Drawing.Color.Red;
             series1.MarkerBorderWidth = 2;
-            series1.MarkerSize = 15;
+            series1.MarkerColor = System.Drawing.Color.Red;
+            series1.MarkerSize = 20;
             series1.MarkerStep = 2;
-            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Star10;
             series1.Name = "Location";
+            series1.SmartLabelStyle.Enabled = false;
+            series1.SmartLabelStyle.MovingDirection = ((System.Windows.Forms.DataVisualization.Charting.LabelAlignmentStyles)(((((((((System.Windows.Forms.DataVisualization.Charting.LabelAlignmentStyles.Top | System.Windows.Forms.DataVisualization.Charting.LabelAlignmentStyles.Bottom) 
+            | System.Windows.Forms.DataVisualization.Charting.LabelAlignmentStyles.Right) 
+            | System.Windows.Forms.DataVisualization.Charting.LabelAlignmentStyles.Left) 
+            | System.Windows.Forms.DataVisualization.Charting.LabelAlignmentStyles.TopLeft) 
+            | System.Windows.Forms.DataVisualization.Charting.LabelAlignmentStyles.TopRight) 
+            | System.Windows.Forms.DataVisualization.Charting.LabelAlignmentStyles.BottomLeft) 
+            | System.Windows.Forms.DataVisualization.Charting.LabelAlignmentStyles.BottomRight) 
+            | System.Windows.Forms.DataVisualization.Charting.LabelAlignmentStyles.Center)));
             series1.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
             this.chartLocation.Series.Add(series1);
-            this.chartLocation.Size = new System.Drawing.Size(602, 336);
+            this.chartLocation.Size = new System.Drawing.Size(602, 553);
             this.chartLocation.TabIndex = 18;
             title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             title1.Name = "Location";
@@ -397,7 +414,7 @@
             this.tableLayoutPanel6.Controls.Add(this.btnAudacityRecord, 1, 4);
             this.tableLayoutPanel6.Controls.Add(this.btnAudacityStop, 0, 4);
             this.tableLayoutPanel6.Controls.Add(this.btnAudacityPause, 0, 1);
-            this.tableLayoutPanel6.Controls.Add(this.textBox1, 0, 5);
+            this.tableLayoutPanel6.Controls.Add(this.txtSerialLog, 0, 5);
             this.tableLayoutPanel6.Controls.Add(this.btnAudacityPlay, 1, 1);
             this.tableLayoutPanel6.Controls.Add(this.btnAudacitySkipToEnd, 1, 3);
             this.tableLayoutPanel6.Controls.Add(this.btnAudacity, 1, 0);
@@ -411,7 +428,7 @@
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(257, 510);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(257, 727);
             this.tableLayoutPanel6.TabIndex = 49;
             // 
             // btnAudacity
@@ -429,11 +446,16 @@
             this.btnAudacity.UseVisualStyleBackColor = true;
             this.btnAudacity.Click += new System.EventHandler(this.btnAudacity_Click);
             // 
+            // timerChartAnimation
+            // 
+            this.timerChartAnimation.Interval = 1;
+            this.timerChartAnimation.Tick += new System.EventHandler(this.timerChartAnimation_Tick);
+            // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(921, 540);
+            this.ClientSize = new System.Drawing.Size(921, 757);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "formMain";
@@ -465,7 +487,7 @@
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Button btnReturnBoomHome;
         private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtSerialLog;
         private System.Windows.Forms.Button btnStart360Rec;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button btnRotateCCW;
@@ -479,6 +501,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnAudacity;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Timer timerChartAnimation;
     }
 }
 
