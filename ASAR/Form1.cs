@@ -35,7 +35,7 @@ namespace ASAR
         int currentStepDirection = 0;
         double startPosition = 0;
         double counterAnimation = 0; 
-        double smallestIncrement = 2.0 / 25.0 * 5;
+        double smallestIncrement = 2.0 / 25.0 * 4;
 
 
         //Charts
@@ -406,12 +406,17 @@ namespace ASAR
 
             if (counterAnimation >= Math.Abs(currentStepSize))
             {
+                seriesLocation.Points[0].XValue = Math.Round(startPosition + (double)currentStepDirection * currentStepSize, 0);
+                seriesLocation.Points[0].Label = Math.Round(seriesLocation.Points[0].XValue, 0).ToString() + "°";
+                lblCurrentPosition.Text = seriesLocation.Points[0].Label;
+
                 timerChartAnimation.Enabled = false;
                 counterAnimation = 0;
                 UpdateStepSize(true);
                 btnRotateCCW.Enabled = true;
                 btnRotateCW.Enabled = true;
                 btnReturnBoomHome.Enabled = true;
+
             }
 
 
