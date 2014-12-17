@@ -42,7 +42,7 @@
             this.btnAudacitySkipToStart = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.btnReturnBoomHome = new System.Windows.Forms.Button();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.comboCurrentStepSize = new System.Windows.Forms.ComboBox();
             this.txtSerialLog = new System.Windows.Forms.TextBox();
             this.btnStart360Rec = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -163,14 +163,14 @@
             this.btnReturnBoomHome.UseVisualStyleBackColor = true;
             this.btnReturnBoomHome.Click += new System.EventHandler(this.btnReturnBoomHome_Click);
             // 
-            // comboBox3
+            // comboCurrentStepSize
             // 
-            this.comboBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.comboCurrentStepSize.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
+            this.comboCurrentStepSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboCurrentStepSize.FormattingEnabled = true;
+            this.comboCurrentStepSize.Items.AddRange(new object[] {
             "2°",
             "4°",
             "6°",
@@ -179,11 +179,11 @@
             "30°",
             "60°",
             "120°"});
-            this.comboBox3.Location = new System.Drawing.Point(421, 116);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(204, 33);
-            this.comboBox3.TabIndex = 44;
-            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            this.comboCurrentStepSize.Location = new System.Drawing.Point(421, 116);
+            this.comboCurrentStepSize.Name = "comboCurrentStepSize";
+            this.comboCurrentStepSize.Size = new System.Drawing.Size(204, 33);
+            this.comboCurrentStepSize.TabIndex = 44;
+            this.comboCurrentStepSize.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // txtSerialLog
             // 
@@ -249,7 +249,7 @@
             this.tableLayoutPanel2.Controls.Add(this.lblCurrentPosition, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.label1, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnRotateCCW, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.comboBox3, 2, 2);
+            this.tableLayoutPanel2.Controls.Add(this.comboCurrentStepSize, 2, 2);
             this.tableLayoutPanel2.Controls.Add(this.label6, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.btnReturnBoomHome, 2, 1);
             this.tableLayoutPanel2.Controls.Add(this.btnRotateCW, 1, 1);
@@ -486,7 +486,7 @@
         private System.Windows.Forms.Button btnAudacitySkipToStart;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Button btnReturnBoomHome;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox comboCurrentStepSize;
         private System.Windows.Forms.TextBox txtSerialLog;
         private System.Windows.Forms.Button btnStart360Rec;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;

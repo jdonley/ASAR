@@ -100,7 +100,7 @@ namespace ASAR
 
             this.myDelegate = new AddDataDelegate(serial_Logger);
             this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
-            comboBox3.SelectedIndex = 0;
+            comboCurrentStepSize.SelectedIndex = 0;
 
         }
 
@@ -145,12 +145,10 @@ namespace ASAR
             {
                 // Update Rotation Degrees and Send command
                 serialPort1.WriteLine(textmessage);
+                btnRotateCCW.Enabled = btnRotateCW.Enabled = btnReturnBoomHome.Enabled = comboCurrentStepSize.Enabled = false;
                 currentStepDirection = -1;
                 startPosition = Math.Round(seriesLocation.Points[0].XValue, 2);
 
-                btnRotateCCW.Enabled = false;
-                btnRotateCW.Enabled = false;
-                btnReturnBoomHome.Enabled = false;
                 timerChartAnimation.Enabled = true;
             }
             else
@@ -169,12 +167,10 @@ namespace ASAR
             {
                 // Update Rotation Degrees and Send command
                 serialPort1.WriteLine(textmessage);
+                btnRotateCCW.Enabled = btnRotateCW.Enabled = btnReturnBoomHome.Enabled = comboCurrentStepSize.Enabled = false;
                 currentStepDirection = +1;
                 startPosition = Math.Round(seriesLocation.Points[0].XValue, 2);
 
-                btnRotateCCW.Enabled = false;
-                btnRotateCW.Enabled = false;
-                btnReturnBoomHome.Enabled = false;
                 timerChartAnimation.Enabled = true;
             }
             else
@@ -193,14 +189,11 @@ namespace ASAR
             {
                 // Update Rotation Degrees and Send command
                 serialPort1.WriteLine(textmessage);
-
+                btnRotateCCW.Enabled = btnRotateCW.Enabled = btnReturnBoomHome.Enabled = comboCurrentStepSize.Enabled = false;
                 startPosition = Math.Round(seriesLocation.Points[0].XValue, 2);
                 currentStepDirection = startPosition > 0 ? -1 : 1;
-                currentStepSize = startPosition;
+                currentStepSize = Math.Abs(startPosition);
 
-                btnRotateCCW.Enabled = false;
-                btnRotateCW.Enabled = false;
-                btnReturnBoomHome.Enabled = false;
                 timerChartAnimation.Enabled = true;
 
             }
@@ -345,28 +338,28 @@ namespace ASAR
         }
         private void UpdateStepSize(Boolean Skip_Serial_Write = false)
         {
-            String stepSizeChange = Convert.ToString(comboBox3.SelectedIndex + 2);
+            String stepSizeChange = Convert.ToString(comboCurrentStepSize.SelectedIndex + 2);
 
             if (serialPort1.IsOpen)  // Update Rotation Degrees and Send command
             {
                 if (!Skip_Serial_Write)
                     serialPort1.WriteLine(stepSizeChange);
 
-                if ((comboBox3.SelectedIndex + 2) == 2)
+                if ((comboCurrentStepSize.SelectedIndex + 2) == 2)
                     currentStepSize = 2;
-                else if ((comboBox3.SelectedIndex + 2) == 3)
+                else if ((comboCurrentStepSize.SelectedIndex + 2) == 3)
                     currentStepSize = 4;
-                else if ((comboBox3.SelectedIndex + 2) == 4)
+                else if ((comboCurrentStepSize.SelectedIndex + 2) == 4)
                     currentStepSize = 6;
-                else if ((comboBox3.SelectedIndex + 2) == 5)
+                else if ((comboCurrentStepSize.SelectedIndex + 2) == 5)
                     currentStepSize = 10;
-                else if ((comboBox3.SelectedIndex + 2) == 6)
+                else if ((comboCurrentStepSize.SelectedIndex + 2) == 6)
                     currentStepSize = 20;
-                else if ((comboBox3.SelectedIndex + 2) == 7)
+                else if ((comboCurrentStepSize.SelectedIndex + 2) == 7)
                     currentStepSize = 30;
-                else if ((comboBox3.SelectedIndex + 2) == 8)
+                else if ((comboCurrentStepSize.SelectedIndex + 2) == 8)
                     currentStepSize = 60;
-                else if ((comboBox3.SelectedIndex + 2) == 9)
+                else if ((comboCurrentStepSize.SelectedIndex + 2) == 9)
                     currentStepSize = 120;
             }
             else
@@ -413,9 +406,7 @@ namespace ASAR
                 timerChartAnimation.Enabled = false;
                 counterAnimation = 0;
                 UpdateStepSize(true);
-                btnRotateCCW.Enabled = true;
-                btnRotateCW.Enabled = true;
-                btnReturnBoomHome.Enabled = true;
+                btnRotateCCW.Enabled = btnRotateCW.Enabled = btnReturnBoomHome.Enabled = comboCurrentStepSize.Enabled = true;
 
             }
 
