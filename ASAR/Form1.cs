@@ -286,18 +286,6 @@ namespace ASAR
             click_ExternBtn(AudacityButton_SkipToEnd);
         }
 
-        private void formMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            try
-            {
-                Point cursorPos = System.Windows.Forms.Cursor.Position;
-                audacityWindow.Close();
-                System.Windows.Forms.Cursor.Position = cursorPos;
-            }
-            catch (Exception ex)
-            { }
-        }
-
         private void btnStart360Rec_Click(object sender, EventArgs e)
         {
             //
@@ -321,8 +309,17 @@ namespace ASAR
             btnReturnBoomHome_Click(sender, e); // Return the boom to it's home location
         }
 
-        private void formMain_FormClosing_1(object sender, FormClosingEventArgs e)
-        {            
+        private void formMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                Point cursorPos = System.Windows.Forms.Cursor.Position;
+                audacityWindow.Close();
+                System.Windows.Forms.Cursor.Position = cursorPos;
+            }
+            catch (Exception ex)
+            { }
+
             // Close Port
             serialPort1.Close();
 
